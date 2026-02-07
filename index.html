@@ -4,21 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Navarro Towing | Servicio de Grúas 24/7</title>
-  <meta name="description" content="Navarro Towing: grúas y asistencia en carretera 24/7. Servicio rápido, seguro y profesional." />
+  <meta name="description" content="Navarro Towing: grúas y asistencia en carretera 24/7. Respuesta rápida, segura y profesional." />
   <meta name="theme-color" content="#0b0f24" />
 
   <style>
     :root{
-      --bg0:#070914;
-      --bg1:#0b0f24;
-      --card: rgba(255,255,255,.06);
-      --stroke: rgba(255,255,255,.12);
+      --bg0:#05060b;
+      --bg1:#0a0f22;
+      --card: rgba(255,255,255,.055);
+      --card2: rgba(15,18,35,.65);
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --gold: #ffd34d;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --muted: rgba(255,255,255,.66);
+      --muted2: rgba(255,255,255,.50);
+      --gold:#ffcc33;
+      --gold2:#ff9d0a;
+      --shadow: 0 18px 70px rgba(0,0,0,.55);
+      --shadow2: 0 10px 28px rgba(0,0,0,.35);
       --r: 22px;
-      --max: 1100px;
+      --r2: 28px;
+      --max: 1120px;
     }
 
     *{ box-sizing:border-box; }
@@ -26,37 +32,139 @@
     body{
       margin:0;
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background:
-        radial-gradient(1200px 700px at 10% 10%, rgba(255,211,77,.12), transparent 60%),
-        radial-gradient(900px 600px at 90% 15%, rgba(255,211,77,.10), transparent 55%),
+        radial-gradient(1200px 700px at 15% 10%, rgba(255,204,51,.10), transparent 60%),
+        radial-gradient(900px 650px at 85% 18%, rgba(255,157,10,.10), transparent 58%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; height:auto; }
+
+    /* ===== FX layers ===== */
+    .fx{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:var(--max); margin:0 auto; padding:22px 16px 40px; }
+    /* Humo (CSS) */
+    .smoke{
+      position:absolute;
+      inset:-20vh -20vw;
+      opacity:.26;
+      filter: blur(22px) saturate(1.05);
+      mix-blend-mode: screen;
+    }
+    .smoke::before,
+    .smoke::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(300px 240px at 20% 30%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(380px 280px at 55% 35%, rgba(255,255,255,.12), transparent 62%),
+        radial-gradient(520px 360px at 85% 55%, rgba(255,255,255,.10), transparent 64%),
+        radial-gradient(420px 320px at 35% 75%, rgba(255,255,255,.10), transparent 64%);
+      transform: translate3d(0,0,0);
+      animation: drift 16s ease-in-out infinite;
+    }
+    .smoke::after{
+      opacity:.75;
+      animation: drift2 22s ease-in-out infinite;
+    }
+    @keyframes drift{
+      0%{ transform: translate(-2%, 0%) scale(1.04) rotate(0deg); }
+      50%{ transform: translate(2%, -2%) scale(1.10) rotate(2deg); }
+      100%{ transform: translate(-2%, 0%) scale(1.04) rotate(0deg); }
+    }
+    @keyframes drift2{
+      0%{ transform: translate(2%, 1%) scale(1.06) rotate(0deg); }
+      50%{ transform: translate(-2%, -1%) scale(1.14) rotate(-2deg); }
+      100%{ transform: translate(2%, 1%) scale(1.06) rotate(0deg); }
+    }
+
+    /* Canvas sparks */
+    #sparks{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      opacity:.55;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
+    }
+
+    /* ===== Layout ===== */
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:22px 16px 70px;
+    }
 
     header{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:12px;
       padding:14px 16px;
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.04);
-      border-radius: var(--r);
+      border-radius: var(--r2);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
     }
+
     .brand{
-      display:flex; align-items:center; gap:12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
       min-width:0;
     }
-    .logo{
-      width:42px; height:42px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(255,211,77,.95), rgba(255,211,77,.35));
-      box-shadow: 0 14px 30px rgba(0,0,0,.35);
-      flex:0 0 auto;
+
+    .brand-badge{
+      width:44px; height:44px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,204,51,.28);
+      background: linear-gradient(180deg, rgba(255,204,51,.22), rgba(255,204,51,.06));
+      display:grid;
+      place-items:center;
+      box-shadow: 0 16px 40px rgba(0,0,0,.40);
+      overflow:hidden;
+      position:relative;
     }
-    .brand h1{
+    /* “brillito” animado */
+    .brand-badge::after{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.28) 50%, transparent 65%);
+      transform: translateX(-60%) rotate(6deg);
+      animation: shine 3.4s ease-in-out infinite;
+      opacity:.9;
+    }
+    @keyframes shine{
+      0%{ transform: translateX(-70%) rotate(6deg); opacity:.0; }
+      18%{ opacity:.65; }
+      50%{ transform: translateX(70%) rotate(6deg); opacity:.0; }
+      100%{ transform: translateX(70%) rotate(6deg); opacity:0; }
+    }
+
+    /* Logo placeholder: cuando subas tu logo, ponlo en assets/logo.png */
+    .brand-logo{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      filter: contrast(1.06) saturate(1.05);
+    }
+    .brand-text{ min-width:0; }
+    .brand-text h1{
       margin:0;
       font-size:16px;
       letter-spacing:.2px;
@@ -64,212 +172,702 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
-    .brand small{ display:block; color:var(--muted); font-size:12px; margin-top:2px; }
+    .brand-text small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
 
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
+    .top-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
       padding:11px 14px;
       border-radius: 999px;
-      border:1px solid rgba(255,211,77,.35);
-      background: rgba(255,211,77,.12);
-      font-weight:700;
-      gap:10px;
+      border:1px solid rgba(255,204,51,.35);
+      background: rgba(255,204,51,.10);
+      font-weight:800;
       white-space:nowrap;
+      box-shadow: var(--shadow2);
     }
-    .btn:hover{ background: rgba(255,211,77,.18); }
+    .pill:hover{ background: rgba(255,204,51,.16); }
 
     .hero{
-      margin-top:18px;
-      padding:22px 18px;
-      border-radius: calc(var(--r) + 6px);
+      margin-top:16px;
+      padding:18px;
+      border-radius: calc(var(--r2) + 8px);
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.04);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      position:relative;
+      backdrop-filter: blur(12px);
       overflow:hidden;
+      position:relative;
     }
-    .hero::after{
+    .hero::before{
       content:"";
       position:absolute;
       inset:-2px;
       background:
-        radial-gradient(500px 220px at 20% 20%, rgba(255,211,77,.18), transparent 60%),
-        radial-gradient(600px 260px at 85% 30%, rgba(255,211,77,.12), transparent 60%);
+        radial-gradient(520px 260px at 20% 20%, rgba(255,204,51,.14), transparent 60%),
+        radial-gradient(620px 320px at 85% 22%, rgba(255,157,10,.12), transparent 60%);
       pointer-events:none;
     }
     .hero > *{ position:relative; z-index:1; }
 
-    .grid{
+    .hero-grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
-      gap:16px;
+      gap:14px;
       align-items:stretch;
     }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns:1fr; }
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns:1fr; }
+      .top-actions{ display:none; }
     }
 
     .kicker{
-      display:inline-flex; gap:10px; align-items:center;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin:0 0 10px;
       color:var(--muted);
       font-size:13px;
-      margin:0 0 10px;
     }
-    .dot{ width:7px; height:7px; border-radius:99px; background: var(--gold); box-shadow: 0 0 18px rgba(255,211,77,.55); }
+    .dot{
+      width:8px; height:8px;
+      border-radius:99px;
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      box-shadow: 0 0 18px rgba(255,204,51,.55);
+    }
 
     h2{
       margin:0 0 10px;
-      font-size:34px;
+      font-size: 34px;
+      letter-spacing: -0.7px;
       line-height:1.08;
-      letter-spacing:-.6px;
     }
     p{
       margin:0 0 14px;
       color:var(--muted);
       font-size:15px;
-      line-height:1.6;
-      max-width: 58ch;
+      line-height:1.62;
+      max-width: 60ch;
     }
 
-    .actions{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 14px;
-    }
+    .cta-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .cta{
-      display:inline-flex; align-items:center; justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
       padding:13px 16px;
       border-radius: 999px;
-      border:1px solid rgba(255,211,77,.55);
-      background: linear-gradient(180deg, rgba(255,211,77,.95), rgba(255,211,77,.55));
+      border:1px solid rgba(255,204,51,.55);
+      background: linear-gradient(180deg, rgba(255,204,51,.95), rgba(255,157,10,.72));
       color:#1b1400;
-      font-weight:900;
-      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+      font-weight:950;
+      box-shadow: 0 16px 42px rgba(0,0,0,.45);
+      position:relative;
+      overflow:hidden;
     }
-    .cta:hover{ filter:brightness(1.03); }
+    .cta::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 45%);
+      transform: translateX(-60%);
+      opacity:.55;
+      animation: ctaGlow 2.8s ease-in-out infinite;
+    }
+    @keyframes ctaGlow{
+      0%{ transform: translateX(-55%); opacity:.15; }
+      40%{ opacity:.55; }
+      70%{ transform: translateX(65%); opacity:.08; }
+      100%{ transform: translateX(65%); opacity:0; }
+    }
 
     .ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
       padding:13px 16px;
       border-radius: 999px;
-      border:1px solid var(--stroke);
+      border:1px solid var(--stroke2);
       background: rgba(255,255,255,.04);
-      font-weight:800;
+      font-weight:900;
     }
     .ghost:hover{ background: rgba(255,255,255,.06); }
 
+    .side{
+      border-radius: calc(var(--r2) + 8px);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(15,18,35,.62), rgba(0,0,0,.18));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding:16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .side::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(520px 320px at 30% 10%, rgba(255,204,51,.10), transparent 55%);
+      pointer-events:none;
+    }
+    .side > *{ position:relative; z-index:1; }
+
+    .phone-stack{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .callbox{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+    }
+    .icon{
+      width:44px; height:44px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(180deg, rgba(255,157,10,.95), rgba(255,204,51,.65));
+      color:#1b1400;
+      font-weight:950;
+      box-shadow: 0 14px 30px rgba(0,0,0,.38);
+      flex:0 0 auto;
+    }
+    .callbox b{ display:block; font-size:14px; }
+    .callbox span{ display:block; color:var(--muted); font-size:13px; margin-top:2px; }
+
+    /* ===== Hazard stripe divider ===== */
+    .stripe{
+      margin:18px 0;
+      height:16px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(255,204,51,.95) 0 16px,
+          rgba(255,204,51,.95) 16px 20px,
+          rgba(0,0,0,.88) 20px 36px,
+          rgba(0,0,0,.88) 36px 40px
+        );
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      position:relative;
+      overflow:hidden;
+    }
+    .stripe::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      transform: translateX(-60%);
+      animation: stripeSweep 2.6s ease-in-out infinite;
+      opacity:.75;
+    }
+    @keyframes stripeSweep{
+      0%{ transform: translateX(-60%); opacity:.0; }
+      15%{ opacity:.75; }
+      50%{ transform: translateX(60%); opacity:0; }
+      100%{ transform: translateX(60%); opacity:0; }
+    }
+
+    /* ===== Sections ===== */
+    .section{
+      padding:10px 0;
+    }
+    .section h3{
+      margin:0 0 8px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      color: rgba(255,204,51,.92);
+    }
+    .section h4{
+      margin:0 0 10px;
+      font-size:28px;
+      letter-spacing:-.5px;
+    }
+    .section .lead{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width: 70ch;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){ .cards{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px){ .cards{ grid-template-columns: 1fr; } }
+
     .card{
-      border-radius: calc(var(--r) + 6px);
+      border-radius: var(--r2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(12px);
+      padding:14px;
+      position:relative;
+      overflow:hidden;
+      min-height:110px;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(380px 220px at 20% 10%, rgba(255,204,51,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .card > *{ position:relative; z-index:1; }
+
+    .card-title{
+      display:flex; gap:10px; align-items:center;
+      margin-bottom:8px;
+    }
+    .mini{
+      width:38px; height:38px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(255,157,10,.12);
+      border:1px solid rgba(255,204,51,.24);
+      color: var(--gold);
+      font-weight:950;
+      flex:0 0 auto;
+    }
+    .card b{ display:block; font-size:14px; }
+    .card p{ margin:0; color:var(--muted); font-size:13px; line-height:1.55; }
+
+    /* Stats */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+      margin-top: 6px;
+    }
+    @media (max-width: 900px){ .stats{ grid-template-columns: repeat(2, 1fr); } }
+    .stat{
+      border-radius: var(--r2);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.18));
+      box-shadow: var(--shadow2);
+      padding:14px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .stat::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(420px 220px at 50% 0%, rgba(255,204,51,.12), transparent 60%);
+      pointer-events:none;
+    }
+    .stat > *{ position:relative; z-index:1; }
+    .stat .n{
+      font-size:22px;
+      font-weight:950;
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .stat .t{ color:var(--muted); font-size:12px; margin-top:4px; }
+
+    /* Contact */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){ .contact-grid{ grid-template-columns:1fr; } }
+
+    .big-card{
+      border-radius: calc(var(--r2) + 10px);
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.04);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      padding:16px;
-      height:100%;
+      backdrop-filter: blur(12px);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
     }
-    .card h3{ margin:0 0 10px; font-size:16px; }
-    .list{ margin:0; padding:0; list-style:none; display:grid; gap:10px; }
-    .li{
-      display:flex; gap:10px; align-items:flex-start;
-      padding:10px 10px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+    .big-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(520px 300px at 25% 10%, rgba(255,204,51,.14), transparent 60%),
+        radial-gradient(520px 320px at 90% 20%, rgba(255,157,10,.10), transparent 60%);
+      pointer-events:none;
     }
-    .badge{
-      flex:0 0 auto;
-      width:34px; height:34px;
-      border-radius: 14px;
-      display:grid; place-items:center;
-      background: rgba(255,211,77,.12);
-      border:1px solid rgba(255,211,77,.25);
-      color: var(--gold);
-      font-weight:900;
-    }
-    .li strong{ display:block; font-size:14px; margin:0; }
-    .li span{ display:block; font-size:13px; color:var(--muted); margin-top:2px; }
+    .big-card > *{ position:relative; z-index:1; }
 
-    footer{
+    .contact-title{
+      margin:0 0 8px;
+      font-size:34px;
+      letter-spacing:-.7px;
+      line-height:1.05;
+    }
+    .contact-sub{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+    .contact-cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+
+    .footer{
       margin-top:18px;
+      padding:18px 14px;
+      border-top:1px solid rgba(255,255,255,.08);
       color: rgba(255,255,255,.55);
       font-size:12px;
       text-align:center;
+    }
+
+    /* Sticky bottom CTA (mobile friendly) */
+    .sticky{
+      position:fixed;
+      left:0; right:0;
+      bottom:12px;
+      z-index:50;
+      display:flex;
+      justify-content:center;
+      pointer-events:none;
+    }
+    .sticky .bar{
+      pointer-events:auto;
+      display:flex;
+      gap:10px;
+      padding:10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(10,12,24,.55);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.60);
+      max-width: min(560px, calc(100% - 24px));
+      width:100%;
+      justify-content:space-between;
+    }
+    .sticky a{
+      flex:1;
+      text-align:center;
+      padding:12px 12px;
+      border-radius: 999px;
+      font-weight:950;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
+    .sticky a.primary{
+      border-color: rgba(255,204,51,.55);
+      background: linear-gradient(180deg, rgba(255,204,51,.95), rgba(255,157,10,.72));
+      color:#1b1400;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .smoke::before, .smoke::after,
+      .stripe::after, .brand-badge::after,
+      .cta::after { animation:none !important; }
     }
   </style>
 </head>
 
 <body>
+  <!-- FX layers -->
+  <div class="fx" aria-hidden="true">
+    <canvas id="sparks"></canvas>
+    <div class="smoke"></div>
+  </div>
+
   <div class="wrap">
     <header>
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div style="min-width:0">
+        <div class="brand-badge" aria-label="Logo">
+          <!-- Cuando subas el logo: ponlo en /assets/logo.png -->
+          <img class="brand-logo" src="assets/logo.png" alt="Navarro Towing" onerror="this.style.display='none'; this.parentElement.style.display='grid'; this.parentElement.style.placeItems='center'; this.parentElement.style.color='rgba(255,255,255,.9)'; this.parentElement.style.fontWeight='900'; this.parentElement.textContent='NT';" />
+        </div>
+        <div class="brand-text">
           <h1>Navarro Towing</h1>
-          <small>Servicio de grúas y asistencia 24/7</small>
+          <small>Servicio profesional de grúas y asistencia 24/7</small>
         </div>
       </div>
 
-      <!-- Cambia el número aquí -->
-      <a class="btn" href="tel:+17870000000" aria-label="Llamar a Navarro Towing">
-        📞 Llamar
-      </a>
+      <div class="top-actions">
+        <a class="pill" href="tel:+17873660008">📞 (787) 366-0008</a>
+        <a class="pill" href="tel:+17879341644">📞 (787) 934-1644</a>
+      </div>
     </header>
 
-    <section class="hero">
-      <div class="grid">
+    <section class="hero" id="inicio">
+      <div class="hero-grid">
         <div>
           <div class="kicker"><span class="dot"></span>Disponible 24/7 • Respuesta rápida</div>
-          <h2>Grúas y auxilio en carretera<br/>cuando más lo necesitas.</h2>
+          <h2>Soluciones profesionales<br/>en carretera.</h2>
           <p>
-            Remolque de vehículos, asistencia en carretera y apoyo en emergencias.
-            Atención rápida, segura y profesional.
+            Ofrecemos una amplia gama de servicios de grúas y asistencia vial.
+            Llegamos rápido, trabajamos seguro, y resolvemos.
           </p>
 
-          <div class="actions">
-            <!-- Cambia el número aquí también -->
-            <a class="cta" href="tel:+17870000000">📞 Llamar ahora</a>
-            <!-- Cambia el WhatsApp -->
-            <a class="ghost" href="https://wa.me/17870000000" target="_blank" rel="noopener">💬 WhatsApp</a>
-            <!-- Cambia la ubicación -->
-            <a class="ghost" href="https://maps.google.com/?q=Puerto+Rico" target="_blank" rel="noopener">📍 Ubicación</a>
+          <div class="cta-row">
+            <a class="cta" href="tel:+17873660008">📞 Llamar ahora</a>
+            <a class="ghost" href="https://wa.me/17873660008" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a class="ghost" href="#servicios">🛠️ Ver servicios</a>
           </div>
         </div>
 
-        <aside class="card">
-          <h3>Servicios</h3>
-          <ul class="list">
-            <li class="li">
-              <div class="badge">1</div>
+        <aside class="side">
+          <div class="kicker"><span class="dot"></span>Contacto rápido</div>
+
+          <div class="phone-stack">
+            <a class="callbox" href="tel:+17873660008">
+              <div class="icon">☎</div>
               <div>
-                <strong>Remolque / Towing</strong>
-                <span>Carros, SUV y pickups.</span>
+                <b>(787) 366-0008</b>
+                <span>Principal</span>
               </div>
-            </li>
-            <li class="li">
-              <div class="badge">2</div>
+            </a>
+            <a class="callbox" href="tel:+17879341644">
+              <div class="icon">☎</div>
               <div>
-                <strong>Asistencia en carretera</strong>
-                <span>Emergencias y apoyo rápido.</span>
+                <b>(787) 934-1644</b>
+                <span>Secundario</span>
               </div>
-            </li>
-            <li class="li">
-              <div class="badge">3</div>
+            </a>
+            <div class="callbox">
+              <div class="icon">⏱</div>
               <div>
-                <strong>Servicio 24/7</strong>
-                <span>Disponible día y noche.</span>
+                <b>Horario</b>
+                <span>Lunes a Domingo • 24 horas / 7 días</span>
               </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </aside>
       </div>
     </section>
 
-    <footer>
-      © <span id="y"></span> Navarro Towing • Todos los derechos reservados
-    </footer>
+    <div class="stripe" aria-hidden="true"></div>
+
+    <section class="section" id="servicios">
+      <h3>SERVICIOS QUE OFRECEMOS</h3>
+      <h4>Soluciones Profesionales</h4>
+      <p class="lead">Asistencia vial y remolque con atención rápida y segura. 24/7.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-title"><div class="mini">🚗</div><div><b>Carretera</b></div></div>
+          <p>Asistencia para vehículos en carretera cuando lo necesites.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">🔋</div><div><b>Battery Booster</b></div></div>
+          <p>Arranque con batería, apoyo rápido y seguro.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">🛞</div><div><b>Cambio de goma</b></div></div>
+          <p>Cambio de neumáticos con herramientas adecuadas.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">⛽</div><div><b>Suplido de gasolina</b></div></div>
+          <p>Te llevamos combustible si te quedas sin gasolina.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">🪝</div><div><b>Remolque</b></div></div>
+          <p>Servicio de grúa para autos, SUV y pickups.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">🏗</div><div><b>Equipo semi-pesado</b></div></div>
+          <p>Manejo de equipos y situaciones semi-pesadas (según disponibilidad).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">♻</div><div><b>Chatarra / Inservible</b></div></div>
+          <p>Remoción de vehículos inservibles o chatarra.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">🚧</div><div><b>Materiales / Construcción</b></div></div>
+          <p>Apoyo y traslado básico de materiales (según coordinación).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="mini">🧰</div><div><b>Asistencia general</b></div></div>
+          <p>Soluciones rápidas para emergencias comunes.</p>
+        </div>
+      </div>
+
+      <div class="stats" style="margin-top:14px;">
+        <div class="stat"><div class="n">24/7</div><div class="t">Servicio disponible</div></div>
+        <div class="stat"><div class="n">15+</div><div class="t">Años de experiencia</div></div>
+        <div class="stat"><div class="n">1000+</div><div class="t">Servicios realizados</div></div>
+        <div class="stat"><div class="n">Rápido</div><div class="t">Respuesta ágil</div></div>
+      </div>
+    </section>
+
+    <div class="stripe" aria-hidden="true"></div>
+
+    <section class="section" id="contacto">
+      <h3>CONTÁCTANOS</h3>
+
+      <div class="contact-grid">
+        <div class="big-card">
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <span class="pill" style="padding:10px 14px;background:rgba(255,204,51,.08);">¿Necesitas <span style="color:var(--gold2);font-weight:950;">Ayuda</span>?</span>
+          </div>
+
+          <div class="contact-title">Estamos aquí para ayudarte 24/7.</div>
+          <p class="contact-sub">Llámanos y estaremos contigo en minutos.</p>
+
+          <div class="cta-row">
+            <a class="cta" href="tel:+17873660008">📞 (787) 366-0008</a>
+            <a class="ghost" href="tel:+17879341644">📞 (787) 934-1644</a>
+          </div>
+
+          <p style="margin-top:12px;color:var(--muted2);font-size:13px;">
+            *Si estás en una emergencia, comparte tu ubicación por WhatsApp para agilizar.
+          </p>
+        </div>
+
+        <div class="contact-cards">
+          <div class="card" style="min-height:auto;">
+            <div class="card-title"><div class="mini">☎</div><div><b>Teléfonos</b></div></div>
+            <p><a href="tel:+17873660008">(787) 366-0008</a><br><a href="tel:+17879341644">(787) 934-1644</a></p>
+          </div>
+          <div class="card" style="min-height:auto;">
+            <div class="card-title"><div class="mini">⏱</div><div><b>Horario</b></div></div>
+            <p>Lunes a Domingo<br>24 horas / 7 días</p>
+          </div>
+          <div class="card" style="min-height:auto;">
+            <div class="card-title"><div class="mini">📍</div><div><b>Ubicación</b></div></div>
+            <p>Puerto Rico<br><span style="color:var(--muted2)">Servicio en toda la isla (según disponibilidad)</span></p>
+            <div class="cta-row" style="margin-top:10px;">
+              <a class="ghost" href="https://maps.google.com/?q=Puerto+Rico" target="_blank" rel="noopener">Abrir en Google Maps</a>
+              <a class="ghost" href="https://wa.me/17873660008" target="_blank" rel="noopener">Enviar ubicación</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div style="font-weight:900; letter-spacing:.04em; margin-bottom:6px;">NAVARRO TOWING SERVICE</div>
+      <div>© <span id="y"></span> Navarro Towing • Todos los derechos reservados</div>
+    </div>
+  </div>
+
+  <!-- Sticky bottom bar (móvil) -->
+  <div class="sticky" role="navigation" aria-label="Acciones rápidas">
+    <div class="bar">
+      <a class="primary" href="tel:+17873660008">📞 Llamar</a>
+      <a href="https://wa.me/17873660008" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="#servicios">🛠️ Servicios</a>
+    </div>
   </div>
 
   <script>
+    // Año footer
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // ===== Sparks (canvas) =====
+    const canvas = document.getElementById('sparks');
+    const ctx = canvas.getContext('2d', { alpha: true });
+
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    let W = 0, H = 0;
+    function resize(){
+      W = Math.floor(window.innerWidth);
+      H = Math.floor(window.innerHeight);
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
+    window.addEventListener('resize', resize, { passive:true });
+    resize();
+
+    const sparks = [];
+    const MAX = 90;
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+
+    function spawnSpark(){
+      // nacen desde la parte superior (como metal grind) y vuelan diagonal suave
+      const fromTop = Math.random() < 0.75;
+      const x = rand(-40, W+40);
+      const y = fromTop ? rand(-30, 40) : rand(0, H*0.35);
+      const speed = rand(1.2, 3.8);
+      const angle = rand(Math.PI * 0.65, Math.PI * 0.95); // hacia abajo/diagonal
+      const vx = Math.cos(angle) * speed * rand(0.7, 1.2);
+      const vy = Math.sin(angle) * speed * rand(0.9, 1.4);
+
+      sparks.push({
+        x, y, vx, vy,
+        life: rand(50, 120),
+        size: rand(1.0, 2.3),
+        glow: rand(0.35, 0.9),
+        hue: rand(32, 48) // oro/naranja
+      });
+    }
+
+    function step(){
+      // ligera limpieza con alpha para que se vea “trailing”
+      ctx.clearRect(0,0,W,H);
+
+      // spawn control
+      if (sparks.length < MAX){
+        const n = Math.floor(rand(0, 3));
+        for(let i=0;i<n;i++) spawnSpark();
+      }
+
+      for(let i=sparks.length-1; i>=0; i--){
+        const s = sparks[i];
+        s.life -= 1;
+        s.vy += 0.02; // gravedad ligera
+        s.x += s.vx;
+        s.y += s.vy;
+
+        // chispa se apaga
+        const alpha = Math.max(0, Math.min(1, s.life / 120)) * s.glow;
+
+        // dibujar
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+        ctx.fillStyle = `hsla(${s.hue}, 95%, 60%, ${alpha})`;
+        ctx.fill();
+
+        // glow extra
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size*3.2, 0, Math.PI*2);
+        ctx.fillStyle = `hsla(${s.hue}, 95%, 60%, ${alpha*0.10})`;
+        ctx.fill();
+
+        // remove
+        if (s.life <= 0 || s.y > H+60 || s.x < -80 || s.x > W+80){
+          sparks.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+    step();
   </script>
 </body>
 </html>
