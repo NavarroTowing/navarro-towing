@@ -354,49 +354,32 @@
     .callbox b{ display:block; font-size:14px; }
     .callbox span{ display:block; color:var(--muted); font-size:13px; margin-top:2px; }
 
-/* ===== Cinta simple (solo negro/amarillo alternado, sin extremos) ===== */
+/* ===== Divider: solo rayas amarillas inclinadas tipo \\\\\\ ===== */
 .stripe{
-  margin:24px 0;
-  height:20px;
-  border-radius:999px;
-  position:relative;
-  overflow:hidden;
-
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow:
-    inset 0 0 10px rgba(0,0,0,.55),
-    0 12px 30px rgba(0,0,0,.55);
-
-  background:#0b0b0b; /* base negra */
+  margin:22px 0 !important;
+  height:16px !important;
+  border-radius:999px !important;
+  overflow:hidden !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  background:#0b0b0b !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.55) !important;
+  position:relative !important;
 }
 
-/* rayas inclinadas SIN repetir “bloques”, sin líneas arriba/abajo */
+/* SOLO rayas amarillas inclinadas (entrecortadas) */
 .stripe::before{
-  content:"";
-  position:absolute;
-  inset:-60% -20%;              /* agranda para que no salgan bordes */
-  transform: rotate(-18deg);     /* inclinación de las rayas */
-  background: repeating-linear-gradient(
-    90deg,
-    #ffb000 0px,   #ffb000 42px,  /* AMARILLO */
-    #0b0b0b 42px,  #0b0b0b 84px   /* NEGRO */
-  );
-  filter: blur(.12px);
-}
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
 
-/* brillo suave (opcional) */
-.stripe::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.18),
-    transparent
-  );
-  opacity:.30;
-  pointer-events:none;
+  /* rayas tipo \\\\\\ */
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255,185,0,.95) 0px,
+    rgba(255,185,0,.95) 14px,
+    rgba(255,185,0,0) 14px,
+    rgba(255,185,0,0) 34px
+  ) !important;
 }
 
 
