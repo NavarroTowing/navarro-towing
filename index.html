@@ -354,38 +354,25 @@
     .callbox b{ display:block; font-size:14px; }
     .callbox span{ display:block; color:var(--muted); font-size:13px; margin-top:2px; }
 
-/* ===== Hazard stripe REAL (sin Z, estilo cinta) ===== */
+/* ===== Hazard stripe (igual a la foto, sin Z) ===== */
 .stripe{
   margin:24px 0;
-  height:16px;
+  height:18px;
   border-radius:999px;
-  overflow:hidden;
   position:relative;
-
-  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);
   box-shadow:
-    inset 0 0 8px rgba(0,0,0,.6),
+    inset 0 0 10px rgba(0,0,0,.55),
     0 12px 30px rgba(0,0,0,.55);
 
-  /* giramos TODA la barra */
-  transform: rotate(-8deg);
+  /* patrón perfecto, sin “Z” */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='28' viewBox='0 0 80 28'%3E%3Crect width='80' height='28' fill='%230b0b0b'/%3E%3Cg transform='skewX(-22)'%3E%3Crect x='-20' y='0' width='22' height='28' fill='%23ffb000'/%3E%3Crect x='20' y='0' width='22' height='28' fill='%23ffb000'/%3E%3Crect x='60' y='0' width='22' height='28' fill='%23ffb000'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 100%;
+  background-repeat: repeat;
 }
 
-/* las rayas son RECTAS */
-.stripe::before{
-  content:"";
-  position:absolute;
-  inset:-50%;
-  background: repeating-linear-gradient(
-    90deg,
-    #ffb000 0px,
-    #ffb000 20px,
-    #0b0b0b 20px,
-    #0b0b0b 40px
-  );
-}
-
-/* brillo tipo cinta */
+/* brillo suave */
 .stripe::after{
   content:"";
   position:absolute;
@@ -393,11 +380,14 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255,255,255,.25),
+    rgba(255,255,255,.22),
     transparent
   );
   opacity:.35;
+  pointer-events:none;
 }
+
+
 
 
 
