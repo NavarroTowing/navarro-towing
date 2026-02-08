@@ -164,6 +164,8 @@
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.26)),
         radial-gradient(900px 420px at 50% 10%, rgba(255,204,51,.10), transparent 64%);
       backdrop-filter: blur(12px);
+       -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
     }
     /*.top-plate::before{
       content:"";
@@ -195,32 +197,7 @@
       gap:10px;
     }
 
-    .hanger{
-      position:absolute;
-      top:-16px;
-      left:50%;
-      transform: translateX(-50%);
-      width:min(520px, 82vw);
-      height:36px;
-      pointer-events:none;
-      z-index:2;
-      opacity:.92;
-    }
-    .hanger::after{
-      content:"";
-      position:absolute;
-      left:0; right:0;
-      top:0;
-      height:26px;
-      border-radius:999px;
-      background:
-        radial-gradient(12px 12px at 12px 13px, rgba(255,255,255,.14) 0 56%, rgba(0,0,0,0) 59%) 0 0 / 26px 22px,
-        radial-gradient(12px 12px at 26px 13px, rgba(255,255,255,.10) 0 52%, rgba(0,0,0,0) 56%) 0 0 / 26px 22px,
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.20));
-      border:1px solid rgba(255,255,255,.10);
-      mask: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
-    }
-
+ 
    /* .logo-badge{
       position:relative;
       width:min(520px, 92vw);
@@ -763,7 +740,6 @@
   <div class="wrap">
     <!-- Header premium (solo logo + tagline) -->
     <header class="top-plate" aria-label="Encabezado">
-      <div class="hanger" aria-hidden="true"></div>
 
       <div class="plate-inner">
         <div class="logo-badge" role="img" aria-label="Navarro Towing logo">
