@@ -159,48 +159,73 @@
     /* ==============================
        LOGO SIN GLASS (solo logo limpio)
        ============================== */
-    .logo-stage{
-      position:relative;
-      width:min(720px, 94vw);
-      margin:0 auto;
-      display:grid;
-      place-items:center;
-      background:none;
-    }
-    .logo-stage::before,
-    .logo-stage::after{ content:none !important; }
+    /* ==============================
+   LOGO SIN GLASS + sol.png DETRÁS (1 sola capa)
+   ============================== */
 
-    .logo-badge{
-      position:relative;
-      width:min(520px, 92vw);
-      padding:0;
-      border-radius:0;
-      overflow:visible;
-      background:none !important;
-      border:0 !important;
-      box-shadow:none !important;
-      display:grid;
-      place-items:center;
-    }
-    .logo-badge::before,
-    .logo-badge::after{ content:none !important; }
+.logo-stage{
+  position:relative;
+  width:min(720px, 94vw);
+  margin:0 auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:none;
+}
 
-    .logo-ring{
-      position:relative;
-      z-index:1;
-      background:none !important;
-      border:0 !important;
-      box-shadow:none !important;
-    }
+/* ✅ AQUÍ va el sol.png */
+.logo-stage::before{
+  content:"";
+  position:absolute;
+  inset:-22%;
+  background: url("sol.png") center / cover no-repeat;
+  opacity:.20;
+  filter: blur(18px) saturate(1.05) contrast(.95);
+  z-index:0;
+  pointer-events:none;
+}
 
-    .logo-img{
-      position:relative;
-      z-index:1;
-      width:100%;
-      height:auto;
-      display:block;
-      filter: drop-shadow(0 14px 32px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
-    }
+/* opcional: oscurece para que no se vea “wash out” */
+.logo-stage::after{
+  content:"";
+  position:absolute;
+  inset:-8%;
+  background: radial-gradient(700px 320px at 50% 40%,
+    rgba(0,0,0,.10),
+    rgba(0,0,0,.55)
+  );
+  z-index:0;
+  pointer-events:none;
+}
+
+.logo-badge{
+  position:relative;
+  z-index:1;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  padding:0;
+}
+
+.logo-ring{
+  width:min(520px, 92vw);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.logo-img{
+  width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto;
+  filter: drop-shadow(0 14px 32px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
+}
+
 
     .top-sub{
       text-align:center;
