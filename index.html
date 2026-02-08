@@ -391,7 +391,7 @@
       text-shadow: 0 16px 44px rgba(0,0,0,.56);
     }
     .hero p{
-      margin:0 auto 14px;
+      margin:0 auto 6px;
       color:var(--muted);
       font-size:15px;
       line-height:1.62;
@@ -717,7 +717,40 @@
     .sticky svg{ width:18px; height:18px; }
 
     @media (max-width: 520px){
-      .hero h2{ font-size:38px; }
+    .hero h2{
+  margin:0 0 10px;
+  font-family:"Anton","Oswald",system-ui;
+  font-size: 44px;
+  letter-spacing:.02em;
+  text-transform: uppercase;
+  line-height:1.02;
+
+  /* METAL: brillo + “brushed” */
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,.98) 0%,
+      rgba(210,220,235,.92) 22%,
+      rgba(255,255,255,.92) 44%,
+      rgba(170,182,200,.88) 62%,
+      rgba(255,255,255,.96) 100%),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.18) 0px,
+      rgba(0,0,0,.18) 1px,
+      rgba(255,255,255,.06) 2px,
+      rgba(255,255,255,.00) 6px);
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+
+  /* adiós mancha negra: sombra mínima y limpia */
+  text-shadow: none;
+  filter: drop-shadow(0 10px 26px rgba(0,0,0,.42));
+
+  /* borde fino para “metal” más nítido */
+  -webkit-text-stroke: 1px rgba(0,0,0,.28);
+}
+
       .btn{ min-width: 160px; }
     }
 
@@ -762,30 +795,7 @@
         Grúas y asistencia vial. Llegamos rápido (según disponibilidad), trabajamos seguro y resolvemos.
       </p>
 
-      <div class="btnrow" aria-label="Acciones principales">
-        <a class="btn primary" href="tel:+17873660008">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6.6 3.9c.4-.9 1.4-1.3 2.3-.9l2 1c.8.4 1.2 1.4.8 2.2l-1 2.1c-.2.5-.1 1 .2 1.4a15.6 15.6 0 0 0 4.5 4.5c.4.3.9.4 1.4.2l2.1-1c.8-.4 1.8 0 2.2.8l1 2c.4.9 0 1.9-.9 2.3l-1.4.6c-1.4.6-3 .7-4.4.2-6.7-2.3-12-7.6-14.3-14.3-.5-1.4-.4-3 .2-4.4l.6-1.4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Llamar ahora
-        </a>
-
-        <a class="btn" href="https://wa.me/17873660008" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M20 11.7c0 4.2-3.6 7.6-8 7.6-1.2 0-2.4-.2-3.4-.7L4 20l1.4-4.2c-.6-1.1-.9-2.4-.9-3.7C4.5 7.9 8 4.5 12 4.5c4.4 0 8 3.3 8 7.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10 9.2c.6 1.5 2.1 3 3.6 3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-          WhatsApp
-        </a>
-
-        <a class="btn" href="#servicios">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3v7a4 4 0 1 1-8 0V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M12 10h4a4 4 0 0 1 4 4v1a5 5 0 0 1-5 5h-1a4 4 0 0 1-4-4v-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Servicios
-        </a>
-      </div>
+     
     </section>
 
     <div class="stripe" aria-hidden="true"></div>
