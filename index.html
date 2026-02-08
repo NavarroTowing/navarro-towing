@@ -765,6 +765,43 @@
   margin:0 auto !important;
   display:block !important;
 }
+/* ===== FIX iPhone: logo centrado SIEMPRE (pegar al FINAL del <style>) ===== */
+@supports (-webkit-touch-callout: none){
+  .plate-inner{ justify-items:center !important; }
+
+  .logo-stage{
+    width:100% !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+  }
+
+  .logo-badge{
+    width:100% !important;
+    max-width:520px !important;
+    margin:0 auto !important;
+    padding:0 !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+  }
+
+  .logo-ring{
+    width:100% !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+  }
+
+  .logo-img{
+    display:block !important;
+    margin:0 auto !important;
+    max-width: min(520px, 92vw) !important;
+    width: min(520px, 92vw) !important;
+    height:auto !important;
+    object-fit: contain !important;
+  }
+}
 
     
   </style>
