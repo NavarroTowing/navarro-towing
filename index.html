@@ -815,6 +815,9 @@
       justify-content:space-between;
       position:relative;
       overflow:hidden;
+      .sticky .bar.two{ justify-content:space-between; }
+.sticky .bar.two a{ flex:1; }
+
     }
     .sticky a{
       flex:1;
@@ -839,7 +842,6 @@
       background: linear-gradient(180deg, rgba(255,223,122,.95), rgba(255,157,10,.78));
       color:#1b1400;
     }
-    .sticky svg{ width:18px; height:18px; }
 
     @media (max-width: 520px){
     .hero h2{
@@ -1053,31 +1055,12 @@
 
   <!-- Sticky: solo acciones, no números -->
   <div class="sticky" role="navigation" aria-label="Acciones rápidas">
-    <div class="bar">
-      <a class="primary" href="tel:+17873660008">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6.6 3.9c.4-.9 1.4-1.3 2.3-.9l2 1c.8.4 1.2 1.4.8 2.2l-1 2.1c-.2.5-.1 1 .2 1.4a15.6 15.6 0 0 0 4.5 4.5c.4.3.9.4 1.4.2l2.1-1c.8-.4 1.8 0 2.2.8l1 2c.4.9 0 1.9-.9 2.3l-1.4.6c-1.4.6-3 .7-4.4.2-6.7-2.3-12-7.6-14.3-14.3-.5-1.4-.4-3 .2-4.4l.6-1.4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Llamar
-      </a>
-
-      <a href="https://wa.me/17873660008" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M20 11.7c0 4.2-3.6 7.6-8 7.6-1.2 0-2.4-.2-3.4-.7L4 20l1.4-4.2c-.6-1.1-.9-2.4-.9-3.7C4.5 7.9 8 4.5 12 4.5c4.4 0 8 3.3 8 7.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M10 9.2c.6 1.5 2.1 3 3.6 3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-        WhatsApp
-      </a>
-
-      <a href="#servicios">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 3v7a4 4 0 1 1-8 0V8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          <path d="M12 10h4a4 4 0 0 1 4 4v1a5 5 0 0 1-5 5h-1a4 4 0 0 1-4-4v-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Servicios
-      </a>
-    </div>
+  <div class="bar two">
+    <a class="primary" href="tel:+17873660008">Llamar</a>
+    <a href="https://wa.me/17873660008" target="_blank" rel="noopener">WhatsApp</a>
   </div>
+</div>
+
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
