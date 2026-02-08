@@ -101,13 +101,6 @@
       mix-blend-mode: screen;
     }
 
-
-
- 
-
-
-
-    
     @keyframes driftA{
       0%{ transform: translate(-2.2%, 0%) scale(1.06) rotate(0deg); }
       50%{ transform: translate(2.2%, -1.8%) scale(1.12) rotate(2deg); }
@@ -118,20 +111,18 @@
       50%{ transform: translate(-2.4%, -1.2%) scale(1.16) rotate(-2deg); }
       100%{ transform: translate(2.0%, 1.0%) scale(1.08) rotate(0deg); }
     }
+
     #sparks{
-  position:fixed;
-  inset:0;
-  z-index:999;                 /* 🔥 MÁS ALTO */
-  pointer-events:none;
-
-  opacity:.75;
-  filter:
-    drop-shadow(0 20px 40px rgba(0,0,0,.65))
-    saturate(1.2)
-    contrast(1.1);
-}
-
-
+      position:fixed;
+      inset:0;
+      z-index:999;
+      pointer-events:none;
+      opacity:.75;
+      filter:
+        drop-shadow(0 20px 40px rgba(0,0,0,.65))
+        saturate(1.2)
+        contrast(1.1);
+    }
 
     /* ===== LAYOUT ===== */
     .wrap{
@@ -155,30 +146,8 @@
         linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.26)),
         radial-gradient(900px 420px at 50% 10%, rgba(255,204,51,.10), transparent 64%);
       backdrop-filter: blur(12px);
-       -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    /*.top-plate::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, rgba(0,0,0,0) 1px 8px),
-        radial-gradient(780px 420px at 50% 0%, rgba(255,223,122,.10), transparent 62%);
-      opacity:.9;
-      pointer-events:none;
-      mix-blend-mode: overlay;
-    }*/
-   /* .top-plate::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(900px 420px at 50% 0%, rgba(255,204,51,.10), transparent 62%),
-        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.48));
-      pointer-events:none;
-      opacity:.9;
-    }*/
 
     .plate-inner{
       position:relative;
@@ -187,70 +156,84 @@
       place-items:center;
       gap:10px;
     }
-/* ===== Logo Stage (solo recorte + sol sutil) ===== */
-.logo-stage{
-  position:relative;
-  width:min(720px, 94vw);
-  margin:0 auto;
-  border-radius:32px;
-  overflow:hidden;            /* recorta el sol */
-  display:grid;
-  place-items:center;
-}
 
-/* sol.png detrás del logo (sutil) */
-.logo-stage::before{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  background: url("/sol.png") center/cover no-repeat; /* ✅ ROOT */
-  opacity:.16;               /* ajusta 0.12–0.22 */
-  filter: blur(18px) saturate(1.05) contrast(.95);
-  pointer-events:none;
-  z-index:0;
-}
+    /* ==============================
+       FIX LOGO: 1 solo "glass" visual
+       - sol.png SOLO detrás del logo
+       - nada de overlays dobles
+       ============================== */
 
-/* degradado oscuro suave para que no opaque */
-.logo-stage::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(900px 420px at 50% 35%,
-    rgba(0,0,0,.10),
-    rgba(0,0,0,.55)
-  );
-  pointer-events:none;
-  z-index:1;
-}
+    /* Dejo el wrapper, pero lo hago neutral (sin overlay) */
+    .logo-stage{
+      position:relative;
+      width:min(720px, 94vw);
+      margin:0 auto;
+      display:grid;
+      place-items:center;
+      border-radius:0;     /* neutral */
+      overflow:visible;    /* neutral */
+      background:none;     /* neutral */
+    }
+    .logo-stage::before,
+    .logo-stage::after{
+      content:none !important; /* 🔥 mata el “glass” doble */
+    }
 
-/* el contenido encima */
-.logo-stage > *{ position:relative; z-index:2; }
+    /* Aquí va el sol, RECORTADO al badge */
+    .logo-badge{
+      position:relative;
+      width:min(520px, 92vw);
+      padding:14px;
+      border-radius:34px;
+      background:transparent;
+      border:0;
+      box-shadow:none;
+      overflow:hidden;          /* ✅ recorta sol dentro del badge */
+      display:grid;
+      place-items:center;
+    }
 
-/* badge sin otro “glass” */
-.logo-badge{
-  width:min(520px, 92vw);
-  padding:14px;
-  border-radius:34px;
-  background:transparent;
-  border:0;
-  box-shadow:none;
-}
+    /* sol detrás del logo (súper sutil) */
+    .logo-badge::before{
+      content:"";
+      position:absolute;
+      inset:-28%;
+      background: url("/sol.png") center/cover no-repeat;
+      opacity:.16;                           /* sutil */
+      filter: blur(18px) saturate(1.05) contrast(.95);
+      pointer-events:none;
+      z-index:0;
+    }
 
-/* logo */
-.logo-img{
-  width:100%;
-  height:auto;
-  display:block;
-  filter: drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
-}
+    /* apagado suave para que no opaque el logo */
+    .logo-badge::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(900px 420px at 50% 35%,
+        rgba(0,0,0,.08),
+        rgba(0,0,0,.55)
+      );
+      pointer-events:none;
+      z-index:1;
+    }
 
-.logo-badge,
-.logo-ring{
-  position:relative;
-}
+    /* ring queda neutral, solo para estructura */
+    .logo-ring{
+      position:relative;
+      z-index:2;
+      background:transparent;
+    }
 
-
-
+    /* logo encima de todo */
+    .logo-img{
+      position:relative;
+      z-index:2;
+      width:100%;
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
+    }
 
     .top-sub{
       text-align:center;
@@ -439,141 +422,70 @@
       font-size:15px;
     }
 
-    /* ===== Cards ===== */
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
+    /* ===== Servicios: lista limpia con bullets ===== */
+    .services-list{
       margin-top:14px;
+      display:grid;
+      gap:12px;
     }
-    @media (max-width: 980px){ .cards{ grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 620px){ .cards{ grid-template-columns: 1fr; } }
-
-    .card{
+    .service-item{
       border-radius: calc(var(--r2) + 6px);
       border:1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.24));
       box-shadow: var(--shadow2);
       backdrop-filter: blur(12px);
-      padding:14px;
+      -webkit-backdrop-filter: blur(12px);
+      padding:16px 16px;
       position:relative;
       overflow:hidden;
-      min-height:112px;
-      transition: transform .18s var(--ease), border-color .18s var(--ease);
     }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,204,51,.20);
-    }
-    .card::before{
+    .service-item::before{
       content:"";
       position:absolute;
       inset:-2px;
       background:
-        radial-gradient(520px 260px at 18% 6%, rgba(255,204,51,.12), transparent 62%),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.024) 0 1px, rgba(0,0,0,0) 1px 9px);
-      opacity:.9;
+        radial-gradient(520px 260px at 18% 6%, rgba(255,204,51,.10), transparent 62%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 1px, rgba(0,0,0,0) 1px 10px);
+      opacity:.75;
       pointer-events:none;
       mix-blend-mode: overlay;
     }
-    .card > *{ position:relative; z-index:1; }
-
-    .card-title{
-      display:flex; gap:10px; align-items:center;
-      margin-bottom:8px;
+    .service-item > *{ position:relative; z-index:1; }
+    .service-head{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:6px;
     }
-    .mini{
-      width:40px; height:40px;
-      border-radius: 15px;
-      display:grid; place-items:center;
-      background: linear-gradient(180deg, rgba(255,223,122,.95), rgba(255,157,10,.78));
-      border:1px solid rgba(255,255,255,.10);
-      color:#1b1400;
-      box-shadow: 0 14px 30px rgba(0,0,0,.40);
+    .bullet{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      margin-top:6px;
       flex:0 0 auto;
+      background: linear-gradient(180deg, var(--g1), var(--g2));
+      box-shadow: 0 0 18px rgba(255,204,51,.40);
+      border:1px solid rgba(255,255,255,.10);
     }
-    .mini svg{ width:20px; height:20px; }
-    .card b{
-      display:block;
+    .service-title{
+      margin:0;
       font-size:14px;
       font-family:"Oswald",system-ui;
-      letter-spacing:.03em;
+      letter-spacing:.10em;
       text-transform: uppercase;
     }
-    .card p{ margin:0; color:var(--muted); font-size:13px; line-height:1.55; }
-    /* ===== Servicios: lista limpia con bullets ===== */
-.services-list{
-  margin-top:14px;
-  display:grid;
-  gap:12px;
-}
+    .service-desc{
+      margin:0 0 0 24px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+    }
+    @media (max-width:620px){
+      .service-item{ padding:14px; }
+      .service-desc{ margin-left: 24px; }
+    }
 
-.service-item{
-  border-radius: calc(var(--r2) + 6px);
-  border:1px solid rgba(255,255,255,.10);
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.24));
-  box-shadow: var(--shadow2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding:16px 16px;
-  position:relative;
-  overflow:hidden;
-}
-
-.service-item::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  background:
-    radial-gradient(520px 260px at 18% 6%, rgba(255,204,51,.10), transparent 62%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 1px, rgba(0,0,0,0) 1px 10px);
-  opacity:.75;
-  pointer-events:none;
-  mix-blend-mode: overlay;
-}
-
-.service-item > *{ position:relative; z-index:1; }
-
-.service-head{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  margin-bottom:6px;
-}
-
-.bullet{
-  width:12px;
-  height:12px;
-  border-radius:999px;
-  margin-top:6px;
-  flex:0 0 auto;
-  background: linear-gradient(180deg, var(--g1), var(--g2));
-  box-shadow: 0 0 18px rgba(255,204,51,.40);
-  border:1px solid rgba(255,255,255,.10);
-}
-
-.service-title{
-  margin:0;
-  font-size:14px;
-  font-family:"Oswald",system-ui;
-  letter-spacing:.10em;
-  text-transform: uppercase;
-}
-
-.service-desc{
-  margin:0 0 0 24px; /* alinea con el texto (espacio del bullet) */
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.55;
-}
-
-@media (max-width:620px){
-  .service-item{ padding:14px; }
-  .service-desc{ margin-left: 24px; }
-}
-
-
-    /* ===== Stats (optional but not spammy) ===== */
+    /* ===== Stats ===== */
     .stats{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -622,7 +534,7 @@
       font-family:"Oswald",system-ui;
     }
 
-    /* ===== Contact (phones appear ONLY HERE) ===== */
+    /* ===== Contact ===== */
     .contact-grid{
       display:grid;
       grid-template-columns: 1fr;
@@ -655,36 +567,32 @@
     }
     .big-card > *{ position:relative; z-index:1; }
 
-.contact-title{
-  margin:10px 0 8px;
-  font-family:"Anton","Oswald",system-ui;
-  font-size: 36px;
-  letter-spacing:.02em;
-  text-transform: uppercase;
-  line-height:1.02;
-
-  /* METAL limpio */
-  background:
-    linear-gradient(180deg,
-      rgba(255,255,255,.98) 0%,
-      rgba(210,220,235,.92) 22%,
-      rgba(255,255,255,.92) 44%,
-      rgba(170,182,200,.88) 62%,
-      rgba(255,255,255,.96) 100%),
-    repeating-linear-gradient(90deg,
-      rgba(0,0,0,.18) 0px,
-      rgba(0,0,0,.18) 1px,
-      rgba(255,255,255,.06) 2px,
-      rgba(255,255,255,.00) 6px);
-
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-
-  text-shadow:none;
-  filter: drop-shadow(0 10px 26px rgba(0,0,0,.42));
-  -webkit-text-stroke: 1px rgba(0,0,0,.28);
-}
+    .contact-title{
+      margin:10px 0 8px;
+      font-family:"Anton","Oswald",system-ui;
+      font-size: 36px;
+      letter-spacing:.02em;
+      text-transform: uppercase;
+      line-height:1.02;
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,.98) 0%,
+          rgba(210,220,235,.92) 22%,
+          rgba(255,255,255,.92) 44%,
+          rgba(170,182,200,.88) 62%,
+          rgba(255,255,255,.96) 100%),
+        repeating-linear-gradient(90deg,
+          rgba(0,0,0,.18) 0px,
+          rgba(0,0,0,.18) 1px,
+          rgba(255,255,255,.06) 2px,
+          rgba(255,255,255,.00) 6px);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:none;
+      filter: drop-shadow(0 10px 26px rgba(0,0,0,.42));
+      -webkit-text-stroke: 1px rgba(0,0,0,.28);
+    }
 
     .contact-sub{
       margin:0 0 12px;
@@ -698,35 +606,26 @@
       margin-top:12px;
     }
 
-    /* ===== Contacto limpio sin SVG ===== */
-.contact-lines{ gap:12px; }
+    .contact-lines{ gap:12px; }
+    .line{
+      align-items:flex-start;
+      padding:14px;
+    }
+    .ico{ display:none !important; }
 
-.line{
-  align-items:flex-start;
-  padding:14px;
-}
+    .line .bullet{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      margin-top:6px;
+      flex:0 0 auto;
+      background: linear-gradient(180deg, var(--g1), var(--g2));
+      box-shadow: 0 0 18px rgba(255,204,51,.40);
+      border:1px solid rgba(255,255,255,.10);
+    }
 
-.ico{ display:none !important; } /* mata los iconos actuales */
-
-.line .bullet{
-  width:12px;
-  height:12px;
-  border-radius:999px;
-  margin-top:6px;
-  flex:0 0 auto;
-  background: linear-gradient(180deg, var(--g1), var(--g2));
-  box-shadow: 0 0 18px rgba(255,204,51,.40);
-  border:1px solid rgba(255,255,255,.10);
-}
-
-.line b{
-  font-size:13px;
-  letter-spacing:.12em;
-}
-
-.line span{
-  font-size:14px;
-}
+    .line b{ font-size:13px; letter-spacing:.12em; }
+    .line span{ font-size:14px; }
 
     .line{
       display:flex;
@@ -738,18 +637,6 @@
       background: rgba(0,0,0,.22);
       box-shadow: 0 10px 26px rgba(0,0,0,.35);
     }
-    .ico{
-      width:46px; height:46px;
-      border-radius: 16px;
-      display:grid;
-      place-items:center;
-      background: linear-gradient(180deg, rgba(255,223,122,.95), rgba(255,157,10,.78));
-      border:1px solid rgba(255,255,255,.10);
-      color:#1b1400;
-      box-shadow: 0 16px 34px rgba(0,0,0,.42);
-      flex:0 0 auto;
-    }
-    .ico svg{ width:22px; height:22px; }
 
     .line b{
       display:block;
@@ -781,7 +668,7 @@
       font-family:"Oswald",system-ui;
     }
 
-    /* ===== Sticky bottom bar (actions only, no numbers repeated) ===== */
+    /* ===== Sticky bottom bar ===== */
     .sticky{
       position:fixed;
       left:0; right:0;
@@ -806,10 +693,10 @@
       justify-content:space-between;
       position:relative;
       overflow:hidden;
-      .sticky .bar.two{ justify-content:space-between; }
-.sticky .bar.two a{ flex:1; }
-
     }
+    .sticky .bar.two{ justify-content:space-between; }
+    .sticky .bar.two a{ flex:1; }
+
     .sticky a{
       flex:1;
       display:flex;
@@ -835,56 +722,46 @@
     }
 
     @media (max-width: 520px){
-    .hero h2{
-  margin:0 0 10px;
-  font-family:"Anton","Oswald",system-ui;
-  font-size: 44px;
-  letter-spacing:.02em;
-  text-transform: uppercase;
-  line-height:1.02;
-
-  /* METAL: brillo + “brushed” */
-  background:
-    linear-gradient(180deg,
-      rgba(255,255,255,.98) 0%,
-      rgba(210,220,235,.92) 22%,
-      rgba(255,255,255,.92) 44%,
-      rgba(170,182,200,.88) 62%,
-      rgba(255,255,255,.96) 100%),
-    repeating-linear-gradient(90deg,
-      rgba(0,0,0,.18) 0px,
-      rgba(0,0,0,.18) 1px,
-      rgba(255,255,255,.06) 2px,
-      rgba(255,255,255,.00) 6px);
-
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-
-  /* adiós mancha negra: sombra mínima y limpia */
-  text-shadow: none;
-  filter: drop-shadow(0 10px 26px rgba(0,0,0,.42));
-
-  /* borde fino para “metal” más nítido */
-  -webkit-text-stroke: 1px rgba(0,0,0,.28);
-}
-
+      .hero h2{
+        margin:0 0 10px;
+        font-family:"Anton","Oswald",system-ui;
+        font-size: 44px;
+        letter-spacing:.02em;
+        text-transform: uppercase;
+        line-height:1.02;
+        background:
+          linear-gradient(180deg,
+            rgba(255,255,255,.98) 0%,
+            rgba(210,220,235,.92) 22%,
+            rgba(255,255,255,.92) 44%,
+            rgba(170,182,200,.88) 62%,
+            rgba(255,255,255,.96) 100%),
+          repeating-linear-gradient(90deg,
+            rgba(0,0,0,.18) 0px,
+            rgba(0,0,0,.18) 1px,
+            rgba(255,255,255,.06) 2px,
+            rgba(255,255,255,.00) 6px);
+        -webkit-background-clip:text;
+        background-clip:text;
+        color:transparent;
+        text-shadow: none;
+        filter: drop-shadow(0 10px 26px rgba(0,0,0,.42));
+        -webkit-text-stroke: 1px rgba(0,0,0,.28);
+      }
       .btn{ min-width: 160px; }
     }
-@media (prefers-reduced-motion: reduce){
-  .logo-badge::after { animation:none !important; }
-}
 
+    @media (prefers-reduced-motion: reduce){
+      .logo-badge::after { animation:none !important; }
+    }
 
-    /* iPhone: reduce repaints en scroll */
-@media (max-width: 820px){
-  .top-plate, .hero, .card, .big-card, .sticky .bar{
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  #sparks{ opacity:.60; }
-}
-
+    @media (max-width: 820px){
+      .top-plate, .hero, .big-card, .sticky .bar{
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      #sparks{ opacity:.60; }
+    }
   </style>
 </head>
 
@@ -892,29 +769,26 @@
   <div class="bg" aria-hidden="true"></div>
 
   <div class="fx" aria-hidden="true">
-  <div class="haze"></div>
-</div>
-  
-  <canvas id="sparks"></canvas>
+    <div class="haze"></div>
+  </div>
 
+  <canvas id="sparks"></canvas>
 
   <div class="wrap">
     <!-- Header premium (solo logo + tagline) -->
     <header class="top-plate" aria-label="Encabezado">
-
       <div class="plate-inner">
 
-  <div class="logo-stage">
-    <div class="logo-badge" role="img" aria-label="Navarro Towing logo">
-      <div class="logo-ring">
-        <img class="logo-img" src="NTlogo.PNG" alt="Navarro Towing Service">
+        <div class="logo-stage">
+          <div class="logo-badge" role="img" aria-label="Navarro Towing logo">
+            <div class="logo-ring">
+              <img class="logo-img" src="NTlogo.PNG" alt="Navarro Towing Service">
+            </div>
+          </div>
+        </div>
+
+        <div class="top-sub">Servicio 24/7 • Puerto Rico • Respuesta rápida</div>
       </div>
-    </div>
-  </div>
-
-  <div class="top-sub">Servicio 24/7 • Puerto Rico • Respuesta rápida</div>
-</div>
-
     </header>
 
     <div class="stripe" aria-hidden="true"></div>
@@ -925,8 +799,6 @@
       <p>
         Grúas y asistencia vial. Llegamos rápido (según disponibilidad), trabajamos seguro y resolvemos.
       </p>
-
-     
     </section>
 
     <div class="stripe" aria-hidden="true"></div>
@@ -939,55 +811,54 @@
       </div>
 
       <div class="services-list" aria-label="Lista de servicios">
-  <div class="service-item">
-    <div class="service-head">
-      <span class="bullet" aria-hidden="true"></span>
-      <h5 class="service-title">Carretera</h5>
-    </div>
-    <p class="service-desc">Asistencia para vehículos en carretera cuando lo necesites.</p>
-  </div>
+        <div class="service-item">
+          <div class="service-head">
+            <span class="bullet" aria-hidden="true"></span>
+            <h5 class="service-title">Carretera</h5>
+          </div>
+          <p class="service-desc">Asistencia para vehículos en carretera cuando lo necesites.</p>
+        </div>
 
-  <div class="service-item">
-    <div class="service-head">
-      <span class="bullet" aria-hidden="true"></span>
-      <h5 class="service-title">Battery booster</h5>
-    </div>
-    <p class="service-desc">Arranque con batería, apoyo rápido y seguro.</p>
-  </div>
+        <div class="service-item">
+          <div class="service-head">
+            <span class="bullet" aria-hidden="true"></span>
+            <h5 class="service-title">Battery booster</h5>
+          </div>
+          <p class="service-desc">Arranque con batería, apoyo rápido y seguro.</p>
+        </div>
 
-  <div class="service-item">
-    <div class="service-head">
-      <span class="bullet" aria-hidden="true"></span>
-      <h5 class="service-title">Remolque</h5>
-    </div>
-    <p class="service-desc">Servicio de grúa para autos, SUV y pickups.</p>
-  </div>
+        <div class="service-item">
+          <div class="service-head">
+            <span class="bullet" aria-hidden="true"></span>
+            <h5 class="service-title">Remolque</h5>
+          </div>
+          <p class="service-desc">Servicio de grúa para autos, SUV y pickups.</p>
+        </div>
 
-  <div class="service-item">
-    <div class="service-head">
-      <span class="bullet" aria-hidden="true"></span>
-      <h5 class="service-title">Cambio de goma</h5>
-    </div>
-    <p class="service-desc">Cambio de neumáticos con herramientas adecuadas.</p>
-  </div>
+        <div class="service-item">
+          <div class="service-head">
+            <span class="bullet" aria-hidden="true"></span>
+            <h5 class="service-title">Cambio de goma</h5>
+          </div>
+          <p class="service-desc">Cambio de neumáticos con herramientas adecuadas.</p>
+        </div>
 
-  <div class="service-item">
-    <div class="service-head">
-      <span class="bullet" aria-hidden="true"></span>
-      <h5 class="service-title">Suplido de gasolina</h5>
-    </div>
-    <p class="service-desc">Te llevamos combustible si te quedas sin gasolina.</p>
-  </div>
+        <div class="service-item">
+          <div class="service-head">
+            <span class="bullet" aria-hidden="true"></span>
+            <h5 class="service-title">Suplido de gasolina</h5>
+          </div>
+          <p class="service-desc">Te llevamos combustible si te quedas sin gasolina.</p>
+        </div>
 
-  <div class="service-item">
-    <div class="service-head">
-      <span class="bullet" aria-hidden="true"></span>
-      <h5 class="service-title">Equipo semi-pesado</h5>
-    </div>
-    <p class="service-desc">Manejo de equipos y situaciones semi-pesadas (según disponibilidad).</p>
-  </div>
-</div>
-
+        <div class="service-item">
+          <div class="service-head">
+            <span class="bullet" aria-hidden="true"></span>
+            <h5 class="service-title">Equipo semi-pesado</h5>
+          </div>
+          <p class="service-desc">Manejo de equipos y situaciones semi-pesadas (según disponibilidad).</p>
+        </div>
+      </div>
 
       <div class="stats">
         <div class="stat"><div class="n">24/7</div><div class="t">Disponible</div></div>
@@ -999,17 +870,15 @@
 
     <div class="stripe" aria-hidden="true"></div>
 
-    <!-- CONTACTO (aquí salen los teléfonos una sola vez) -->
+    <!-- CONTACTO -->
     <section class="section" id="contacto">
-      
       <div class="big-card">
         <div class="contact-title">Navarro Towing</div>
         <p class="contact-sub">Servicio de grúas y asistencia vial. Atención rápida, segura y profesional.</p>
 
         <div class="contact-lines" aria-label="Datos de contacto">
           <a class="line" href="tel:+17873660008">
-             <span class="bullet" aria-hidden="true"></span>
-
+            <span class="bullet" aria-hidden="true"></span>
             <div>
               <b>Teléfono principal</b>
               <span>(787) 366-0008</span>
@@ -1018,7 +887,6 @@
 
           <a class="line" href="tel:+17879341644">
             <span class="bullet" aria-hidden="true"></span>
-
             <div>
               <b>Teléfono alterno</b>
               <span>(787) 934-1644</span>
@@ -1026,8 +894,7 @@
           </a>
 
           <a class="line" href="https://wa.me/17873660008" target="_blank" rel="noopener">
-              <span class="bullet" aria-hidden="true"></span>
-
+            <span class="bullet" aria-hidden="true"></span>
             <div>
               <b>WhatsApp</b>
               <span>Enviar ubicación y detalles</span>
@@ -1035,8 +902,7 @@
           </a>
 
           <a class="line" href="https://maps.google.com/?q=Puerto+Rico" target="_blank" rel="noopener">
-             <span class="bullet" aria-hidden="true"></span>
-
+            <span class="bullet" aria-hidden="true"></span>
             <div>
               <b>Área de servicio</b>
               <span>Puerto Rico (según disponibilidad)</span>
@@ -1048,28 +914,25 @@
 
     <div class="footer">
       <div class="brandline">NAVARRO TOWING</div>
-<div>
-  © <span id="y"></span>
-  <a href="https://www.raymonddevelop.com" target="_blank" rel="noopener"
-     style="color:inherit; text-decoration:none; font-weight:700;">
-    RaymondDevelop
-  </a>
-</div>
+      <div>
+        © <span id="y"></span>
+        <a href="https://www.raymonddevelop.com" target="_blank" rel="noopener"
+          style="color:inherit; text-decoration:none; font-weight:700;">
+          RaymondDevelop
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Sticky: solo acciones, no números -->
   <div class="sticky" role="navigation" aria-label="Acciones rápidas">
-  <div class="bar two">
-    <a class="primary" href="tel:+17873660008">Llamar</a>
-    <a href="https://wa.me/17873660008" target="_blank" rel="noopener">WhatsApp</a>
+    <div class="bar two">
+      <a class="primary" href="tel:+17873660008">Llamar</a>
+      <a href="https://wa.me/17873660008" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
   </div>
-</div>
-
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-
 
     // ===== Sparks (drilling, controlled) =====
     const canvas = document.getElementById('sparks');
@@ -1077,36 +940,33 @@
     const DPR = Math.min(2, window.devicePixelRatio || 1);
     let W = 0, H = 0;
 
-    const vv = window.visualViewport; // iOS friendly
-let lastW = 0, lastH = 0;
-let resizeRAF = 0;
+    const vv = window.visualViewport;
+    let lastW = 0, lastH = 0;
+    let resizeRAF = 0;
 
-function stableResize(){
-  const w = Math.floor(vv ? vv.width : window.innerWidth);
-  const h = Math.floor(vv ? vv.height : window.innerHeight);
+    function stableResize(){
+      const w = Math.floor(vv ? vv.width : window.innerWidth);
+      const h = Math.floor(vv ? vv.height : window.innerHeight);
+      if (Math.abs(w - lastW) < 2 && Math.abs(h - lastH) < 2) return;
+      lastW = w; lastH = h;
 
-  // evita recalcular por cambios mínimos del address bar
-  if (Math.abs(w - lastW) < 2 && Math.abs(h - lastH) < 2) return;
-  lastW = w; lastH = h;
+      W = w; H = h;
+      canvas.width  = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+    }
 
-  W = w; H = h;
-  canvas.width  = Math.floor(W * DPR);
-  canvas.height = Math.floor(H * DPR);
-  canvas.style.width  = W + 'px';
-  canvas.style.height = H + 'px';
-  ctx.setTransform(DPR,0,0,DPR,0,0);
-}
+    function requestStableResize(){
+      cancelAnimationFrame(resizeRAF);
+      resizeRAF = requestAnimationFrame(stableResize);
+    }
 
-function requestStableResize(){
-  cancelAnimationFrame(resizeRAF);
-  resizeRAF = requestAnimationFrame(stableResize);
-}
+    window.addEventListener('resize', requestStableResize, { passive:true });
+    if (vv) vv.addEventListener('resize', requestStableResize, { passive:true });
 
-window.addEventListener('resize', requestStableResize, { passive:true });
-if (vv) vv.addEventListener('resize', requestStableResize, { passive:true });
-
-stableResize();
-
+    stableResize();
 
     const sparks = [];
     const MAX = 120;
