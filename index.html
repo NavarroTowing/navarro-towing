@@ -101,54 +101,9 @@
       mix-blend-mode: screen;
     }
 
-/* ===== Humo cinematográfico (sutil) ===== */
-/* ===== HUMO visible (premium, no tapa) ===== */
-.smoke{
-  position:absolute;
-  inset:-35vh -35vw;
-  pointer-events:none;
 
-  /* sube visibilidad */
-  opacity:.65;
 
-  /* más “masa” */
-  filter: blur(22px) saturate(1.15);
-
-  /* en vez de screen (a veces no se nota), usamos normal */
-  mix-blend-mode: normal;
-    z-index:2; /* ← AGREGA ESTA LÍNEA */
-
-}
-
-.smoke::before,
-.smoke::after{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  /* humo frío + toque cálido */
-  background:
-    radial-gradient(520px 340px at 18% 70%, rgba(255,255,255,.18), transparent 72%),
-    radial-gradient(720px 460px at 52% 45%, rgba(255,255,255,.14), transparent 74%),
-    radial-gradient(820px 520px at 86% 66%, rgba(255,223,122,.10), transparent 76%),
-    radial-gradient(900px 620px at 40% 110%, rgba(255,157,10,.06), transparent 70%);
-
-  animation: smokeUp 18s linear infinite;
-  transform-origin: 50% 60%;
-}
-
-.smoke::after{
-  opacity:.65;
-  filter: blur(14px);
-  animation-duration: 26s;
-  animation-direction: reverse;
-}
-
-@keyframes smokeUp{
-  0%   { transform: translate3d(0, 10vh, 0) scale(1.02); }
-  50%  { transform: translate3d(5vw, 2vh, 0) scale(1.10); }
-  100% { transform: translate3d(-4vw, -8vh, 0) scale(1.16); }
-}
+ 
 
 
 
@@ -176,14 +131,7 @@
     contrast(1.1);
 }
 
-#smoke{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  opacity:.20;                 /* visible pero elegante */
-  filter: blur(0px) saturate(1.05);
-}
+
 
     /* ===== LAYOUT ===== */
     .wrap{
@@ -923,11 +871,10 @@
 
       .btn{ min-width: 160px; }
     }
+@media (prefers-reduced-motion: reduce){
+  .logo-badge::after { animation:none !important; }
+}
 
-    @media (prefers-reduced-motion: reduce){
-      .smoke::before, .smoke::after,
-      .logo-badge::after { animation:none !important; }
-    }
 
     /* iPhone: reduce repaints en scroll */
 @media (max-width: 820px){
@@ -935,7 +882,6 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
-  .smoke{ opacity:.35; filter: blur(14px) saturate(1.05); }
   #sparks{ opacity:.60; }
 }
 
@@ -946,7 +892,6 @@
   <div class="bg" aria-hidden="true"></div>
 
   <div class="fx" aria-hidden="true">
-  <canvas id="smoke"></canvas>
   <div class="haze"></div>
 </div>
   
@@ -1120,84 +1065,7 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-// ===== Smoke (real, smooth) =====
-const smokeCanvas = document.getElementById('smoke');
-const sctx = smokeCanvas.getContext('2d', { alpha:true });
 
-let SW=0, SH=0;
-const SDPR = Math.min(2, window.devicePixelRatio || 1);
-
-function sresize(){
-  SW = Math.floor(window.innerWidth);
-  SH = Math.floor(window.innerHeight);
-  smokeCanvas.width = Math.floor(SW * SDPR);
-  smokeCanvas.height = Math.floor(SH * SDPR);
-  smokeCanvas.style.width = SW + 'px';
-  smokeCanvas.style.height = SH + 'px';
-  sctx.setTransform(SDPR,0,0,SDPR,0,0);
-}
-window.addEventListener('resize', sresize, { passive:true });
-sresize();
-
-const puffs = [];
-const PUFFS = 26;
-
-function sRand(a,b){ return Math.random()*(b-a)+a; }
-function addPuff(){
-  puffs.push({
-    x: sRand(-SW*0.1, SW*1.1),
-    y: sRand(SH*0.15, SH*0.55),
-    r: sRand(120, 280),
-    vx: sRand(-0.18, 0.18),
-    vy: sRand(-0.30, -0.08),
-    a: sRand(0.05, 0.12),
-    life: sRand(600, 1400),
-    t: sRand(0, 9999)
-  });
-}
-
-for(let i=0;i<PUFFS;i++) addPuff();
-
-function drawSmoke(){
-  sctx.clearRect(0,0,SW,SH);
-
-  // humo solo arriba (no tapa toda la página)
-  sctx.save();
-  sctx.globalCompositeOperation = 'lighter';
-
-  for(let i=puffs.length-1;i>=0;i--){
-    const p = puffs[i];
-    p.life -= 1;
-
-    p.t += 0.006;
-    const wobbleX = Math.sin(p.t) * 0.7;
-    const wobbleY = Math.cos(p.t*0.9) * 0.4;
-
-    p.x += p.vx + wobbleX;
-    p.y += p.vy + wobbleY;
-    p.r *= 1.0006;
-
-    const grad = sctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-    grad.addColorStop(0, `rgba(230,240,255,${p.a})`);
-    grad.addColorStop(0.55, `rgba(255,240,200,${p.a*0.45})`);
-    grad.addColorStop(1, 'rgba(0,0,0,0)');
-
-    sctx.fillStyle = grad;
-    sctx.beginPath();
-    sctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    sctx.fill();
-
-    // recicla
-    if (p.life <= 0 || p.y < -SH*0.2 || p.x < -SW*0.4 || p.x > SW*1.4){
-      puffs.splice(i,1);
-      addPuff();
-    }
-  }
-
-  sctx.restore();
-  requestAnimationFrame(drawSmoke);
-}
-drawSmoke();
 
     // ===== Sparks (drilling, controlled) =====
     const canvas = document.getElementById('sparks');
