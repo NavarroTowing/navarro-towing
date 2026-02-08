@@ -100,29 +100,50 @@
       opacity:.8;
       mix-blend-mode: screen;
     }
-    .smoke{
-      position:absolute;
-      inset:-25vh -25vw;
-      opacity:.44;
-      filter: blur(26px) saturate(1.10);
-      mix-blend-mode: screen;
-    }
-    .smoke::before,
-    .smoke::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(440px 320px at 18% 30%, rgba(255,255,255,.14), transparent 62%),
-        radial-gradient(620px 420px at 52% 42%, rgba(255,255,255,.10), transparent 66%),
-        radial-gradient(780px 520px at 78% 58%, rgba(255,255,255,.08), transparent 68%);
-      animation: driftA 16s var(--ease) infinite;
-    }
-    .smoke::after{
-      opacity:.8;
-      filter: blur(10px);
-      animation: driftB 22s var(--ease) infinite;
-    }
+
+/* ===== Humo cinematográfico (sutil) ===== */
+.smoke{
+  position:absolute;
+  inset:-40vh -40vw;
+  pointer-events:none;
+  opacity:.38;
+  filter: blur(32px);
+  mix-blend-mode: screen;
+}
+
+.smoke::before,
+.smoke::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(420px 260px at 20% 60%, rgba(255,255,255,.10), transparent 70%),
+    radial-gradient(520px 340px at 50% 40%, rgba(255,255,255,.08), transparent 72%),
+    radial-gradient(640px 420px at 80% 65%, rgba(255,255,255,.06), transparent 74%);
+  animation: smoke-drift 28s linear infinite;
+}
+
+.smoke::after{
+  opacity:.6;
+  filter: blur(20px);
+  animation-duration: 38s;
+  animation-direction: reverse;
+}
+
+@keyframes smoke-drift{
+  0%{
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  50%{
+    transform: translateY(-6vh) translateX(4vw) scale(1.08);
+  }
+  100%{
+    transform: translateY(-12vh) translateX(-4vw) scale(1.12);
+  }
+}
+
+
+    
     @keyframes driftA{
       0%{ transform: translate(-2.2%, 0%) scale(1.06) rotate(0deg); }
       50%{ transform: translate(2.2%, -1.8%) scale(1.12) rotate(2deg); }
