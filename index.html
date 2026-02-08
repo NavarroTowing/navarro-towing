@@ -801,6 +801,31 @@
     height:auto !important;
     object-fit: contain !important;
   }
+
+/* ===== FIX iPhone: padding simétrico + centrado real ===== */
+/* pegar AL FINAL del <style> */
+
+body{
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.wrap{
+  padding-left: max(16px, env(safe-area-inset-left)) !important;
+  padding-right: max(16px, env(safe-area-inset-right)) !important;
+}
+
+.top-plate,
+.hero,
+.big-card,
+.stripe{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.top-sub{
+  width:100% !important;
+  text-align:center !important;
 }
 
     
