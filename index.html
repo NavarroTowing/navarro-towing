@@ -102,13 +102,20 @@
     }
 
 /* ===== Humo cinematográfico (sutil) ===== */
+/* ===== HUMO visible (premium, no tapa) ===== */
 .smoke{
   position:absolute;
-  inset:-40vh -40vw;
+  inset:-35vh -35vw;
   pointer-events:none;
-  opacity:.38;
-  filter: blur(32px);
-  mix-blend-mode: screen;
+
+  /* sube visibilidad */
+  opacity:.55;
+
+  /* más “masa” */
+  filter: blur(22px) saturate(1.15);
+
+  /* en vez de screen (a veces no se nota), usamos normal */
+  mix-blend-mode: normal;
 }
 
 .smoke::before,
@@ -116,31 +123,31 @@
   content:"";
   position:absolute;
   inset:0;
+
+  /* humo frío + toque cálido */
   background:
-    radial-gradient(420px 260px at 20% 60%, rgba(255,255,255,.10), transparent 70%),
-    radial-gradient(520px 340px at 50% 40%, rgba(255,255,255,.08), transparent 72%),
-    radial-gradient(640px 420px at 80% 65%, rgba(255,255,255,.06), transparent 74%);
-  animation: smoke-drift 28s linear infinite;
+    radial-gradient(520px 340px at 18% 70%, rgba(255,255,255,.18), transparent 72%),
+    radial-gradient(720px 460px at 52% 45%, rgba(255,255,255,.14), transparent 74%),
+    radial-gradient(820px 520px at 86% 66%, rgba(255,223,122,.10), transparent 76%),
+    radial-gradient(900px 620px at 40% 110%, rgba(255,157,10,.06), transparent 70%);
+
+  animation: smokeUp 18s linear infinite;
+  transform-origin: 50% 60%;
 }
 
 .smoke::after{
-  opacity:.6;
-  filter: blur(20px);
-  animation-duration: 38s;
+  opacity:.65;
+  filter: blur(14px);
+  animation-duration: 26s;
   animation-direction: reverse;
 }
 
-@keyframes smoke-drift{
-  0%{
-    transform: translateY(0) translateX(0) scale(1);
-  }
-  50%{
-    transform: translateY(-6vh) translateX(4vw) scale(1.08);
-  }
-  100%{
-    transform: translateY(-12vh) translateX(-4vw) scale(1.12);
-  }
+@keyframes smokeUp{
+  0%   { transform: translate3d(0, 10vh, 0) scale(1.02); }
+  50%  { transform: translate3d(5vw, 2vh, 0) scale(1.10); }
+  100% { transform: translate3d(-4vw, -8vh, 0) scale(1.16); }
 }
+
 
 
     
