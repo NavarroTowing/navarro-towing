@@ -171,6 +171,14 @@
       opacity:.65;
       filter: drop-shadow(0 10px 22px rgba(0,0,0,.45));
     }
+#smoke{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:.45;                 /* visible pero elegante */
+  filter: blur(0px) saturate(1.05);
+}
 
     /* ===== LAYOUT ===== */
     .wrap{
@@ -922,10 +930,11 @@
   <div class="bg" aria-hidden="true"></div>
 
   <div class="fx" aria-hidden="true">
-    <canvas id="sparks"></canvas>
-    <div class="haze"></div>
-    <div class="smoke"></div>
-  </div>
+  <canvas id="smoke"></canvas>
+  <canvas id="sparks"></canvas>
+  <div class="haze"></div>
+</div>
+
 
   <div class="wrap">
     <!-- Header premium (solo logo + tagline) -->
@@ -1094,6 +1103,84 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+// ===== Smoke (real, smooth) =====
+const smokeCanvas = document.getElementById('smoke');
+const sctx = smokeCanvas.getContext('2d', { alpha:true });
+
+let SW=0, SH=0;
+const SDPR = Math.min(2, window.devicePixelRatio || 1);
+
+function sresize(){
+  SW = Math.floor(window.innerWidth);
+  SH = Math.floor(window.innerHeight);
+  smokeCanvas.width = Math.floor(SW * SDPR);
+  smokeCanvas.height = Math.floor(SH * SDPR);
+  smokeCanvas.style.width = SW + 'px';
+  smokeCanvas.style.height = SH + 'px';
+  sctx.setTransform(SDPR,0,0,SDPR,0,0);
+}
+window.addEventListener('resize', sresize, { passive:true });
+sresize();
+
+const puffs = [];
+const PUFFS = 26;
+
+function sRand(a,b){ return Math.random()*(b-a)+a; }
+function addPuff(){
+  puffs.push({
+    x: sRand(-SW*0.1, SW*1.1),
+    y: sRand(SH*0.15, SH*0.55),
+    r: sRand(120, 280),
+    vx: sRand(-0.18, 0.18),
+    vy: sRand(-0.30, -0.08),
+    a: sRand(0.05, 0.12),
+    life: sRand(600, 1400),
+    t: sRand(0, 9999)
+  });
+}
+
+for(let i=0;i<PUFFS;i++) addPuff();
+
+function drawSmoke(){
+  sctx.clearRect(0,0,SW,SH);
+
+  // humo solo arriba (no tapa toda la página)
+  sctx.save();
+  sctx.globalCompositeOperation = 'lighter';
+
+  for(let i=puffs.length-1;i>=0;i--){
+    const p = puffs[i];
+    p.life -= 1;
+
+    p.t += 0.006;
+    const wobbleX = Math.sin(p.t) * 0.7;
+    const wobbleY = Math.cos(p.t*0.9) * 0.4;
+
+    p.x += p.vx + wobbleX;
+    p.y += p.vy + wobbleY;
+    p.r *= 1.0006;
+
+    const grad = sctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+    grad.addColorStop(0, `rgba(230,240,255,${p.a})`);
+    grad.addColorStop(0.55, `rgba(255,240,200,${p.a*0.45})`);
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+    sctx.fillStyle = grad;
+    sctx.beginPath();
+    sctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    sctx.fill();
+
+    // recicla
+    if (p.life <= 0 || p.y < -SH*0.2 || p.x < -SW*0.4 || p.x > SW*1.4){
+      puffs.splice(i,1);
+      addPuff();
+    }
+  }
+
+  sctx.restore();
+  requestAnimationFrame(drawSmoke);
+}
+drawSmoke();
 
     // ===== Sparks (drilling, controlled) =====
     const canvas = document.getElementById('sparks');
