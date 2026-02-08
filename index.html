@@ -224,44 +224,54 @@
 .plate-inner{ justify-items:center; }
 
 
-/* IMPORTANTE: el logo NO debe tener background raro */
-.logo-badge, .logo-ring{
-  background: transparent !important;
+/* Glass real en el contenedor (limita el sol aquí) */
+.logo-stage{
+  position:relative;
+  width:min(720px, 94vw);
+  margin: 0 auto;
+  border-radius: 32px;
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.24));
+  box-shadow: 0 18px 60px rgba(0,0,0,.58);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
- 
-   /* .logo-badge{
-      position:relative;
-      width:min(520px, 92vw);
-      border-radius: 34px;
-      padding:14px 14px;
-      background: linear-gradient(180deg, rgba(16,18,28,.68), rgba(0,0,0,.18));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 60px rgba(0,0,0,.58);
-      overflow:hidden;
-    }*/
-    /*.logo-badge::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02)),
-        radial-gradient(720px 260px at 50% 0%, rgba(255,204,51,.14), transparent 62%),
-        repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, rgba(0,0,0,0) 1px 8px);
-      opacity:.9;
-      pointer-events:none;
-      mix-blend-mode: overlay;
-    }*/
-   .logo-badge{
-  position:relative;
-  width:min(520px, 92vw);
-  border-radius: 34px;
-  padding:14px 14px;
-  background: linear-gradient(180deg, rgba(16,18,28,.68), rgba(0,0,0,.18));
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow: 0 18px 60px rgba(0,0,0,.58);
-  overflow:hidden;
+/* sol.png detrás (sutil) */
+.logo-stage::before{
+  content:"";
+  position:absolute;
+  inset:-18%;
+  background: url("sol.png") center/cover no-repeat;
+  opacity:.14;
+  filter: blur(16px) saturate(1.05) contrast(.95);
+  pointer-events:none;
+  z-index:0;
 }
+
+/* apaga el sol con degradado suave */
+.logo-stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(900px 420px at 50% 35%, rgba(0,0,0,.10), rgba(0,0,0,.60));
+  pointer-events:none;
+  z-index:1;
+}
+
+.logo-stage > *{ position:relative; z-index:2; }
+
+/* badge SOLO centra y da padding (sin glass propio) */
+.logo-badge{
+  width:min(520px, 92vw);
+  margin:0 auto;
+  border-radius: 34px;
+  padding:14px;
+  background: transparent;
+}
+
     
 
 
@@ -301,9 +311,7 @@
 }
 
 
-}
 
-    }
 
     .top-sub{
       text-align:center;
