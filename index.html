@@ -354,6 +354,35 @@
     .callbox b{ display:block; font-size:14px; }
     .callbox span{ display:block; color:var(--muted); font-size:13px; margin-top:2px; }
 
+    /* ===== Logo centrado arriba ===== */
+.top-logo{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:28px 16px 18px;
+}
+
+.top-logo img{
+  max-width:360px;   /* tamaño desktop */
+  width:100%;
+  height:auto;
+  filter:
+    drop-shadow(0 12px 30px rgba(0,0,0,.65));
+}
+
+/* Responsive */
+@media (max-width: 768px){
+  .top-logo img{
+    max-width:260px;
+  }
+}
+@media (max-width: 420px){
+  .top-logo img{
+    max-width:220px;
+  }
+}
+
+
 /* ===== Divider: solo rayas amarillas inclinadas tipo \\\\\\ ===== */
 .stripe{
   margin:22px 0 !important;
@@ -603,23 +632,10 @@
   </div>
 
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="brand-badge" aria-label="Logo">
-          <!-- Cuando subas el logo: ponlo en /assets/logo.png -->
-          <img class="brand-logo" src="assets/logo.png" alt="Navarro Towing" onerror="this.style.display='none'; this.parentElement.style.display='grid'; this.parentElement.style.placeItems='center'; this.parentElement.style.color='rgba(255,255,255,.9)'; this.parentElement.style.fontWeight='900'; this.parentElement.textContent='NT';" />
-        </div>
-        <div class="brand-text">
-          <h1>Navarro Towing</h1>
-          <small>Servicio profesional de grúas y asistencia 24/7</small>
-        </div>
-      </div>
+<header class="top-logo">
+  <img src="NTlogo.PNG" alt="Navarro Towing Service">
+</header>
 
-      <div class="top-actions">
-        <a class="pill" href="tel:+17873660008">📞 (787) 366-0008</a>
-        <a class="pill" href="tel:+17879341644">📞 (787) 934-1644</a>
-      </div>
-    </header>
 
     <section class="hero" id="inicio">
       <div class="hero-grid">
