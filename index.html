@@ -163,77 +163,74 @@
        - nada de overlays dobles
        ============================== */
 
-    /* Dejo el wrapper, pero lo hago neutral (sin overlay) */
-    .logo-stage{
-      position:relative;
-      width:min(720px, 94vw);
-      margin:0 auto;
-      display:grid;
-      place-items:center;
-      border-radius:0;     /* neutral */
-      overflow:visible;    /* neutral */
-      background:none;     /* neutral */
-    }
-    .logo-stage::before,
-    .logo-stage::after{
-      content:none !important; /* 🔥 mata el “glass” doble */
-    }
+   /* ===== LOGO: fondo con sol.png (UNA SOLA CAPA) ===== */
 
-    /* Aquí va el sol, RECORTADO al badge */
-    .logo-badge{
-      position:relative;
-      width:min(520px, 92vw);
-      padding:14px;
-      border-radius:34px;
-      background:transparent;
-      border:0;
-      box-shadow:none;
-      overflow:hidden;          /* ✅ recorta sol dentro del badge */
-      display:grid;
-      place-items:center;
-    }
+.logo-stage{
+  position:relative;
+  width:min(720px, 94vw);
+  margin:0 auto;
+  display:grid;
+  place-items:center;
+  background:none;
+}
+.logo-stage::before,
+.logo-stage::after{
+  content:none !important;
+}
 
-    /* sol detrás del logo (súper sutil) */
-    .logo-badge::before{
-      content:"";
-      position:absolute;
-      inset:-28%;
-      background: url("/sol.png") center/cover no-repeat;
-      opacity:.16;                           /* sutil */
-      filter: blur(18px) saturate(1.05) contrast(.95);
-      pointer-events:none;
-      z-index:0;
-    }
+.logo-badge{
+  position:relative;
+  width:min(520px, 92vw);
+  padding:14px;
+  border-radius:34px;
+  overflow:hidden;          /* recorta el fondo */
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  display:grid;
+  place-items:center;
+}
 
-    /* apagado suave para que no opaque el logo */
-    .logo-badge::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(900px 420px at 50% 35%,
-        rgba(0,0,0,.08),
-        rgba(0,0,0,.55)
-      );
-      pointer-events:none;
-      z-index:1;
-    }
+/* 🔥 FONDO REAL: sol.png (ruta RELATIVA) */
+.logo-badge::before{
+  content:"";
+  position:absolute;
+  inset:-28%;
+  background: url("sol.png") center/cover no-repeat; /* ← CAMBIO */
+  opacity:.18;
+  filter: blur(16px) saturate(1.05) contrast(.95);
+  z-index:0;
+  pointer-events:none;
+}
 
-    /* ring queda neutral, solo para estructura */
-    .logo-ring{
-      position:relative;
-      z-index:2;
-      background:transparent;
-    }
+/* oscurecido suave */
+.logo-badge::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(900px 420px at 50% 35%,
+    rgba(0,0,0,.10),
+    rgba(0,0,0,.55)
+  );
+  z-index:1;
+  pointer-events:none;
+}
 
-    /* logo encima de todo */
-    .logo-img{
-      position:relative;
-      z-index:2;
-      width:100%;
-      height:auto;
-      display:block;
-      filter: drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
-    }
+.logo-ring{
+  position:relative;
+  z-index:2;
+  background:transparent;
+}
+
+.logo-img{
+  position:relative;
+  z-index:2;
+  width:100%;
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
+}
+
 
     .top-sub{
       text-align:center;
