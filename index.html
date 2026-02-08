@@ -7,7 +7,6 @@
   <meta name="description" content="Navarro Towing: grúas y asistencia en carretera 24/7. Respuesta rápida, segura y profesional." />
   <meta name="theme-color" content="#07070b" />
 
-  <!-- Tipografía industria -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet">
@@ -158,79 +157,50 @@
     }
 
     /* ==============================
-       FIX LOGO: 1 solo "glass" visual
-       - sol.png SOLO detrás del logo
-       - nada de overlays dobles
+       LOGO SIN GLASS (solo logo limpio)
        ============================== */
+    .logo-stage{
+      position:relative;
+      width:min(720px, 94vw);
+      margin:0 auto;
+      display:grid;
+      place-items:center;
+      background:none;
+    }
+    .logo-stage::before,
+    .logo-stage::after{ content:none !important; }
 
-   /* ===== LOGO: fondo con sol.png (UNA SOLA CAPA) ===== */
+    .logo-badge{
+      position:relative;
+      width:min(520px, 92vw);
+      padding:0;
+      border-radius:0;
+      overflow:visible;
+      background:none !important;
+      border:0 !important;
+      box-shadow:none !important;
+      display:grid;
+      place-items:center;
+    }
+    .logo-badge::before,
+    .logo-badge::after{ content:none !important; }
 
-.logo-stage{
-  position:relative;
-  width:min(720px, 94vw);
-  margin:0 auto;
-  display:grid;
-  place-items:center;
-  background:none;
-}
-.logo-stage::before,
-.logo-stage::after{
-  content:none !important;
-}
+    .logo-ring{
+      position:relative;
+      z-index:1;
+      background:none !important;
+      border:0 !important;
+      box-shadow:none !important;
+    }
 
-.logo-badge{
-  position:relative;
-  width:min(520px, 92vw);
-  padding:14px;
-  border-radius:34px;
-  overflow:hidden;          /* recorta el fondo */
-  background:transparent;
-  border:0;
-  box-shadow:none;
-  display:grid;
-  place-items:center;
-}
-
-/* 🔥 FONDO REAL: sol.png (ruta RELATIVA) */
-.logo-badge::before{
-  content:"";
-  position:absolute;
-  inset:-28%;
-  background: url("sol.png") center/cover no-repeat; /* ← CAMBIO */
-  opacity:.18;
-  filter: blur(16px) saturate(1.05) contrast(.95);
-  z-index:0;
-  pointer-events:none;
-}
-
-/* oscurecido suave */
-.logo-badge::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(900px 420px at 50% 35%,
-    rgba(0,0,0,.10),
-    rgba(0,0,0,.55)
-  );
-  z-index:1;
-  pointer-events:none;
-}
-
-.logo-ring{
-  position:relative;
-  z-index:2;
-  background:transparent;
-}
-
-.logo-img{
-  position:relative;
-  z-index:2;
-  width:100%;
-  height:auto;
-  display:block;
-  filter: drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
-}
-
+    .logo-img{
+      position:relative;
+      z-index:1;
+      width:100%;
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 14px 32px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
+    }
 
     .top-sub{
       text-align:center;
@@ -772,7 +742,6 @@
   <canvas id="sparks"></canvas>
 
   <div class="wrap">
-    <!-- Header premium (solo logo + tagline) -->
     <header class="top-plate" aria-label="Encabezado">
       <div class="plate-inner">
 
@@ -790,7 +759,6 @@
 
     <div class="stripe" aria-hidden="true"></div>
 
-    <!-- HERO: una sola área de CTA -->
     <section class="hero" id="inicio">
       <h2>Soluciones profesionales<br/>en carretera.</h2>
       <p>
@@ -800,7 +768,6 @@
 
     <div class="stripe" aria-hidden="true"></div>
 
-    <!-- SERVICIOS -->
     <section class="section" id="servicios">
       <div class="strap">
         <h4>SERVICIOS QUE OFRECEMOS</h4>
@@ -867,7 +834,6 @@
 
     <div class="stripe" aria-hidden="true"></div>
 
-    <!-- CONTACTO -->
     <section class="section" id="contacto">
       <div class="big-card">
         <div class="contact-title">Navarro Towing</div>
@@ -931,7 +897,6 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // ===== Sparks (drilling, controlled) =====
     const canvas = document.getElementById('sparks');
     const ctx = canvas.getContext('2d', { alpha: true });
     const DPR = Math.min(2, window.devicePixelRatio || 1);
