@@ -774,10 +774,31 @@
     text-align:center !important;
   }
 } /* ✅ CIERRA @supports */
-</style>
+    /* ===== FIX DEFINITIVO HEADER: SIEMPRE EN COLUMNA (iPhone/desktop) ===== */
+.plate-inner{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:10px !important;
+}
 
+.logo-stage,
+.logo-badge,
+.logo-ring{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  width:100% !important;
+}
 
+.logo-stage{ max-width:720px !important; }
+.logo-badge{ max-width:520px !important; }
 
+.top-sub{
+  width:100% !important;
+  text-align:center !important;
+}
 
     
   </style>
