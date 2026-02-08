@@ -869,6 +869,25 @@
   margin-bottom: 0;
   padding-bottom: 1px;
 }
+/* ===== FOTO morro.png (entre servicios y lista) ===== */
+.photo-glass{
+  margin: 14px 0 14px;
+  border-radius: calc(var(--r2) + 10px);
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04); /* glass limpio, sin degradado */
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden; /* clave para que el borde redondo recorte la foto */
+}
+
+.photo-glass img{
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  filter: none; /* full color (sin cambios) */
+}
 
     
   </style>
@@ -916,6 +935,12 @@
         <p class="lead">Asistencia vial y remolque con atención rápida y segura. Servicio disponible 24/7.</p>
       </div>
 
+
+       <!-- FOTO (root: morro.png) -->
+  <figure class="photo-glass" aria-label="Foto de referencia">
+    <img src="./morro.png" alt="Navarro Towing - Foto" loading="lazy" decoding="async">
+  </figure>
+      
       <div class="services-list" aria-label="Lista de servicios">
         <div class="service-item">
           <div class="service-head">
