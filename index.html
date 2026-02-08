@@ -664,14 +664,37 @@
     }
     .big-card > *{ position:relative; z-index:1; }
 
-    .contact-title{
-      margin:10px 0 8px;
-      font-family:"Anton","Oswald",system-ui;
-      font-size: 36px;
-      letter-spacing:.02em;
-      text-transform: uppercase;
-      line-height:1.02;
-    }
+.contact-title{
+  margin:10px 0 8px;
+  font-family:"Anton","Oswald",system-ui;
+  font-size: 36px;
+  letter-spacing:.02em;
+  text-transform: uppercase;
+  line-height:1.02;
+
+  /* METAL limpio */
+  background:
+    linear-gradient(180deg,
+      rgba(255,255,255,.98) 0%,
+      rgba(210,220,235,.92) 22%,
+      rgba(255,255,255,.92) 44%,
+      rgba(170,182,200,.88) 62%,
+      rgba(255,255,255,.96) 100%),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,.18) 0px,
+      rgba(0,0,0,.18) 1px,
+      rgba(255,255,255,.06) 2px,
+      rgba(255,255,255,.00) 6px);
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+
+  text-shadow:none;
+  filter: drop-shadow(0 10px 26px rgba(0,0,0,.42));
+  -webkit-text-stroke: 1px rgba(0,0,0,.28);
+}
+
     .contact-sub{
       margin:0 0 12px;
       color:var(--muted);
@@ -683,6 +706,37 @@
       gap:10px;
       margin-top:12px;
     }
+
+    /* ===== Contacto limpio sin SVG ===== */
+.contact-lines{ gap:12px; }
+
+.line{
+  align-items:flex-start;
+  padding:14px;
+}
+
+.ico{ display:none !important; } /* mata los iconos actuales */
+
+.line .bullet{
+  width:12px;
+  height:12px;
+  border-radius:999px;
+  margin-top:6px;
+  flex:0 0 auto;
+  background: linear-gradient(180deg, var(--g1), var(--g2));
+  box-shadow: 0 0 18px rgba(255,204,51,.40);
+  border:1px solid rgba(255,255,255,.10);
+}
+
+.line b{
+  font-size:13px;
+  letter-spacing:.12em;
+}
+
+.line span{
+  font-size:14px;
+}
+
     .line{
       display:flex;
       gap:12px;
@@ -940,23 +994,15 @@
 
     <!-- CONTACTO (aquí salen los teléfonos una sola vez) -->
     <section class="section" id="contacto">
-      <div class="strap">
-        <h3>CONTÁCTANOS</h3>
-        <h4>Estamos listos 24/7</h4>
-        <p class="lead">Llámanos o escribe por WhatsApp. Para agilizar, comparte tu ubicación.</p>
-      </div>
-
+      
       <div class="big-card">
         <div class="contact-title">Navarro Towing</div>
         <p class="contact-sub">Servicio de grúas y asistencia vial. Atención rápida, segura y profesional.</p>
 
         <div class="contact-lines" aria-label="Datos de contacto">
           <a class="line" href="tel:+17873660008">
-            <div class="ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.6 3.9c.4-.9 1.4-1.3 2.3-.9l2 1c.8.4 1.2 1.4.8 2.2l-1 2.1c-.2.5-.1 1 .2 1.4a15.6 15.6 0 0 0 4.5 4.5c.4.3.9.4 1.4.2l2.1-1c.8-.4 1.8 0 2.2.8l1 2c.4.9 0 1.9-.9 2.3l-1.4.6c-1.4.6-3 .7-4.4.2-6.7-2.3-12-7.6-14.3-14.3-.5-1.4-.4-3 .2-4.4l.6-1.4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
+             <span class="bullet" aria-hidden="true"></span>
+
             <div>
               <b>Teléfono principal</b>
               <span>(787) 366-0008</span>
@@ -964,11 +1010,8 @@
           </a>
 
           <a class="line" href="tel:+17879341644">
-            <div class="ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.6 3.9c.4-.9 1.4-1.3 2.3-.9l2 1c.8.4 1.2 1.4.8 2.2l-1 2.1c-.2.5-.1 1 .2 1.4a15.6 15.6 0 0 0 4.5 4.5c.4.3.9.4 1.4.2l2.1-1c.8-.4 1.8 0 2.2.8l1 2c.4.9 0 1.9-.9 2.3l-1.4.6c-1.4.6-3 .7-4.4.2-6.7-2.3-12-7.6-14.3-14.3-.5-1.4-.4-3 .2-4.4l.6-1.4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
+            <span class="bullet" aria-hidden="true"></span>
+
             <div>
               <b>Teléfono alterno</b>
               <span>(787) 934-1644</span>
@@ -976,12 +1019,8 @@
           </a>
 
           <a class="line" href="https://wa.me/17873660008" target="_blank" rel="noopener">
-            <div class="ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M20 11.7c0 4.2-3.6 7.6-8 7.6-1.2 0-2.4-.2-3.4-.7L4 20l1.4-4.2c-.6-1.1-.9-2.4-.9-3.7C4.5 7.9 8 4.5 12 4.5c4.4 0 8 3.3 8 7.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10 9.2c.6 1.5 2.1 3 3.6 3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
+              <span class="bullet" aria-hidden="true"></span>
+
             <div>
               <b>WhatsApp</b>
               <span>Enviar ubicación y detalles</span>
@@ -989,12 +1028,8 @@
           </a>
 
           <a class="line" href="https://maps.google.com/?q=Puerto+Rico" target="_blank" rel="noopener">
-            <div class="ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 12.2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/>
-              </svg>
-            </div>
+             <span class="bullet" aria-hidden="true"></span>
+
             <div>
               <b>Área de servicio</b>
               <span>Puerto Rico (según disponibilidad)</span>
