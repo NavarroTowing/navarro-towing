@@ -799,6 +799,42 @@
   width:100% !important;
   text-align:center !important;
 }
+/* ===== IMAGEN camion1.png DETRÁS DEL HERO ===== */
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+
+/* imagen de fondo */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: url("./camion1.png") center / cover no-repeat;
+  opacity:.35;              /* controla fuerza de la imagen */
+  filter: saturate(1.05) contrast(.95);
+  z-index:0;
+}
+
+/* oscurecido para legibilidad */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.55),
+    rgba(0,0,0,.25),
+    rgba(0,0,0,.65)
+  );
+  z-index:1;
+}
+
+/* contenido del hero por encima */
+.hero > *{
+  position:relative;
+  z-index:2;
+}
 
     
   </style>
