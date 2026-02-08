@@ -729,65 +729,35 @@
       }
       #sparks{ opacity:.60; }
     }
-/* ✅ FIX CENTRADO LOGO (pegar al FINAL del <style>) */
-.logo-stage{ width:100% !important; }
-.logo-badge{ width:min(520px, 92vw) !important; margin:0 auto !important; }
-.logo-ring{ width:100% !important; display:flex !important; justify-content:center !important; }
-.logo-img{ margin:0 auto !important; }
-/* ===== CENTRADO FORZADO LOGO (sin tocar PNG) ===== */
-.plate-inner{ justify-items:center !important; }
+/* ===== FIX GLOBAL iOS: CENTRO REAL ===== */
+@supports (padding: env(safe-area-inset-left)) {
 
-.logo-stage{
-  width:100% !important;
-  display:flex !important;
-  justify-content:center !important;
-  align-items:center !important;
-}
-
-.logo-badge{
-  width:min(520px, 92vw) !important;
-  margin:0 auto !important;
-  display:flex !important;
-  justify-content:center !important;
-  align-items:center !important;
-}
-
-.logo-ring{
-  width:100% !important;
-  display:flex !important;
-  justify-content:center !important;
-  align-items:center !important;
-}
-
-.logo-img{
-  width:auto !important;
-  max-width:100% !important;
-  margin:0 auto !important;
-  display:block !important;
-}
-/* ===== FIX iPhone: logo centrado SIEMPRE (pegar al FINAL del <style>) ===== */
-@supports (-webkit-touch-callout: none){
-  .plate-inner{ justify-items:center !important; }
-
-  .logo-stage{
-    width:100% !important;
-    display:flex !important;
-    justify-content:center !important;
-    align-items:center !important;
+  body{
+    margin:0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
-  .logo-badge{
-    width:100% !important;
-    max-width:520px !important;
-    margin:0 auto !important;
-    padding:0 !important;
-    display:flex !important;
-    justify-content:center !important;
-    align-items:center !important;
+  .wrap{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    max-width: 1120px;
   }
 
+  .top-plate,
+  .hero,
+  .big-card,
+  .stripe{
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .plate-inner,
+  .logo-stage,
+  .logo-badge,
   .logo-ring{
-    width:100% !important;
     display:flex !important;
     justify-content:center !important;
     align-items:center !important;
@@ -795,38 +765,16 @@
 
   .logo-img{
     display:block !important;
-    margin:0 auto !important;
-    max-width: min(520px, 92vw) !important;
-    width: min(520px, 92vw) !important;
-    height:auto !important;
-    object-fit: contain !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
   }
 
-/* ===== FIX iPhone: padding simétrico + centrado real ===== */
-/* pegar AL FINAL del <style> */
+  .top-sub{
+    width:100% !important;
+    text-align:center !important;
+  }
 
-body{
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
 
-.wrap{
-  padding-left: max(16px, env(safe-area-inset-left)) !important;
-  padding-right: max(16px, env(safe-area-inset-right)) !important;
-}
-
-.top-plate,
-.hero,
-.big-card,
-.stripe{
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-.top-sub{
-  width:100% !important;
-  text-align:center !important;
-}
 
     
   </style>
