@@ -799,6 +799,29 @@
   width:100% !important;
   text-align:center !important;
 }
+/* ===== FONDO sol.png DETRÁS DEL LOGO (SEGURO) ===== */
+
+.logo-stage{
+  position:relative;
+}
+
+.logo-stage::before{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background: url("sol.png") center / cover no-repeat;
+  opacity:0.18;
+  filter: blur(18px);
+  z-index:0;
+  pointer-events:none;
+}
+
+.logo-badge,
+.logo-ring,
+.logo-img{
+  position:relative;
+  z-index:1;
+}
 
     
   </style>
