@@ -187,124 +187,63 @@
       place-items:center;
       gap:10px;
     }
-/* ===== Logo Stage (ancla) ===== */
+/* ===== Logo Stage (solo recorte + sol sutil) ===== */
 .logo-stage{
   position:relative;
   width:min(720px, 94vw);
-  margin: 0 auto;
-  border-radius: 32px;
-  overflow:hidden; /* recorta el sol */
+  margin:0 auto;
+  border-radius:32px;
+  overflow:hidden;            /* recorta el sol */
+  display:grid;
+  place-items:center;
 }
 
-/* sol.png detrás del logo (SÚPER SUAVE) */
+/* sol.png detrás del logo (sutil) */
 .logo-stage::before{
   content:"";
   position:absolute;
-  inset:-18%;
-  background: url("sol.png") center/cover no-repeat;
-  opacity:.16;                       /* ✅ sutil */
-  filter: blur(16px) saturate(1.05) contrast(.95);
+  inset:-20%;
+  background: url("/sol.png") center/cover no-repeat; /* ✅ ROOT */
+  opacity:.16;               /* ajusta 0.12–0.22 */
+  filter: blur(18px) saturate(1.05) contrast(.95);
   pointer-events:none;
   z-index:0;
 }
 
-/* degradado suave para “apagar” el sol */
+/* degradado oscuro suave para que no opaque */
 .logo-stage::after{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(900px 420px at 50% 35%, rgba(0,0,0,.08), rgba(0,0,0,.55));
+  background: radial-gradient(900px 420px at 50% 35%,
+    rgba(0,0,0,.10),
+    rgba(0,0,0,.55)
+  );
   pointer-events:none;
   z-index:1;
 }
 
+/* el contenido encima */
 .logo-stage > *{ position:relative; z-index:2; }
 
-.plate-inner{ justify-items:center; }
-
-
-/* Glass real en el contenedor (limita el sol aquí) */
-.logo-stage{
-  position:relative;
-  width:min(720px, 94vw);
-  margin: 0 auto;
-  border-radius: 32px;
-  overflow:hidden;
-
-  border:1px solid rgba(255,255,255,.12);
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.24));
-  box-shadow: 0 18px 60px rgba(0,0,0,.58);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* sol.png detrás (sutil) */
-.logo-stage::before{
-  content:"";
-  position:absolute;
-  inset:-18%;
-  background: url("sol.png") center/cover no-repeat;
-  opacity:.14;
-  filter: blur(16px) saturate(1.05) contrast(.95);
-  pointer-events:none;
-  z-index:0;
-}
-
-/* apaga el sol con degradado suave */
-.logo-stage::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(900px 420px at 50% 35%, rgba(0,0,0,.10), rgba(0,0,0,.60));
-  pointer-events:none;
-  z-index:1;
-}
-
-.logo-stage > *{ position:relative; z-index:2; }
-
-/* badge SOLO centra y da padding (sin glass propio) */
+/* badge sin otro “glass” */
 .logo-badge{
   width:min(520px, 92vw);
-  margin:0 auto;
-  border-radius: 34px;
   padding:14px;
-  background: transparent;
+  border-radius:34px;
+  background:transparent;
+  border:0;
+  box-shadow:none;
 }
 
-    
-
-
-    @keyframes shine{
-      0%{ transform: translateX(-70%) rotate(8deg); opacity:0; }
-      18%{ opacity:.7; }
-      48%{ transform: translateX(70%) rotate(8deg); opacity:0; }
-      100%{ transform: translateX(70%) rotate(8deg); opacity:0; }
-    }
-
-    /*.logo-ring{
-      position:relative;
-      border-radius: 26px;
-      padding:14px;
-      background:
-        radial-gradient(900px 340px at 50% 0%, rgba(255,204,51,.12), transparent 62%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.22));
-      border:1px solid rgba(255,204,51,.18);
-      box-shadow: 0 18px 52px rgba(0,0,0,.55);
-    }
-    .logo-ring::before{
-      content:"";
-      position:absolute;
-      inset:10px;
-      border-radius: 20px;
-      border:1px solid rgba(255,255,255,.10);
-      pointer-events:none;
-    }*/
-    .logo-img{
+/* logo */
+.logo-img{
   width:100%;
   height:auto;
+  display:block;
   filter: drop-shadow(0 18px 40px rgba(0,0,0,.65)) saturate(1.07) contrast(1.04);
 }
+
 .logo-badge,
 .logo-ring{
   position:relative;
