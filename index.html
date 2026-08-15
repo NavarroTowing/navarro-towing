@@ -923,7 +923,26 @@
 .socials a:hover svg{
   fill:#1b1400;
 }
+.brand{
+    position: relative;
+    overflow: hidden;
+}
 
+.brand-trucks{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    opacity: 0.65;
+}
+
+.logo-img{
+    position: relative;
+    z-index: 2;
+}
    
   </style>
 </head>
@@ -940,7 +959,22 @@
   <div class="wrap">
     <header class="top-plate" aria-label="Encabezado">
       <div class="plate-inner">
+<div class="brand">
 
+    <img
+        class="brand-trucks"
+        src="./camiones-fondo.png"
+        alt=""
+        aria-hidden="true"
+    >
+
+    <img
+        class="logo-img"
+        src="NTlogo.PNG"
+        alt="Navarro Towing & Transport"
+    >
+
+</div>
         <div class="logo-stage">
           <div class="logo-badge" role="img" aria-label="Navarro Towing logo">
             <div class="logo-ring">
