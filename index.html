@@ -950,6 +950,29 @@
     position:relative;
     z-index:2;
 }
+    /* ===== EFECTO FLOTANTE DEL LOGO ===== */
+
+.logo-img{
+    animation: logoFloat 5s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes logoFloat{
+    0%, 100%{
+        transform: translateY(0);
+    }
+
+    50%{
+        transform: translateY(-8px);
+    }
+}
+
+/* Respeta usuarios con animaciones reducidas */
+@media (prefers-reduced-motion: reduce){
+    .logo-img{
+        animation:none;
+    }
+}
    
   </style>
 </head>
