@@ -1023,6 +1023,52 @@
     margin-right: auto;
     text-align: center;
 }
+    /* ===== CONTACTO: TARJETAS CENTRADAS 2x2 ===== */
+
+.contact-lines{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+    margin-top:18px;
+}
+
+.contact-lines .line{
+    min-height:120px;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+    text-align:center;
+}
+
+.contact-lines .line .bullet{
+    margin:0 0 6px 0;
+}
+
+.contact-lines .line div{
+    text-align:center;
+}
+
+.contact-lines .line b{
+    text-align:center;
+}
+
+.contact-lines .line span{
+    text-align:center;
+}
+
+/* CELULAR */
+@media (max-width:620px){
+    .contact-lines{
+        grid-template-columns:1fr;
+    }
+
+    .contact-lines .line{
+        min-height:105px;
+    }
+}
   </style>
 </head>
 
