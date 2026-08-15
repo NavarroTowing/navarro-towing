@@ -923,25 +923,32 @@
 .socials a:hover svg{
   fill:#1b1400;
 }
-.brand{
-    position: relative;
-    overflow: hidden;
+/* ===== CAMIONES COMO FONDO DEL HEADER ===== */
+
+.top-plate::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.12),
+            rgba(0,0,0,.30)
+        ),
+        url("./camiones-fondo.png");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    opacity:.75;
+    z-index:0;
+    pointer-events:none;
 }
 
-.brand-trucks{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-    opacity: 0.65;
-}
-
-.logo-img{
-    position: relative;
-    z-index: 2;
+.top-plate .plate-inner{
+    position:relative;
+    z-index:2;
 }
    
   </style>
@@ -957,35 +964,31 @@
   <canvas id="sparks"></canvas>
 
   <div class="wrap">
-    <header class="top-plate" aria-label="Encabezado">
-      <div class="plate-inner">
-<div class="brand">
+   <header class="top-plate" aria-label="Encabezado">
 
-    <img
-        class="brand-trucks"
-        src="./camiones-fondo.png"
-        alt=""
-        aria-hidden="true"
-    >
+    <div class="plate-inner">
 
-    <img
-        class="logo-img"
-        src="NTlogo.PNG"
-        alt="Navarro Towing & Transport"
-    >
-
-</div>
         <div class="logo-stage">
-          <div class="logo-badge" role="img" aria-label="Navarro Towing logo">
-            <div class="logo-ring">
-              <img class="logo-img" src="NTlogo.PNG" alt="Navarro Towing Service">
+            <div class="logo-badge" role="img" aria-label="Navarro Towing & Transport">
+                <div class="logo-ring">
+
+                    <img
+                        class="logo-img"
+                        src="NTlogo.PNG"
+                        alt="Navarro Towing & Transport"
+                    >
+
+                </div>
             </div>
-          </div>
         </div>
 
-        <div class="top-sub">Servicio 24/7 • Puerto Rico • Respuesta rápida</div>
-      </div>
-    </header>
+        <div class="top-sub">
+            Servicio 24/7 • Puerto Rico • Respuesta rápida
+        </div>
+
+    </div>
+
+</header>
 
     <div class="stripe" aria-hidden="true"></div>
 
